@@ -72,6 +72,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  width: auto;
 }
 
 header {
@@ -215,7 +216,6 @@ img {
 }
 
 main {
-  margin-top: 60px;
   margin-left: 10%;
   margin-right: 10%;
   padding: 20px;
@@ -611,6 +611,29 @@ footer {
   padding-right: 25px;
 }
 
+.amenities {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-property {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.add-property label {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 @media (max-width: 1300px) {
   .side-bar {
     position: absolute;
@@ -719,5 +742,15 @@ footer {
     max-width: 40%;
     font-size: 14px;
     text-align: center;
+    width: auto;
+  }
+  header {
+    width: auto;
+  }
+  body {
+    width: auto;
+  }
+  footer {
+    width: 100%;
   }
 }
