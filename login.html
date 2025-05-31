@@ -73,34 +73,46 @@
         </div>
     </footer>
 	<script>
-document.getElementById('loginForm').addEventListener('submit', async function (e) {
-    e.preventDefault(); // prevent form default submission
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-    const username = e.target.username.value;
-    const password = e.target.password.value;
-
-    try {
-        const res = await fetch('https://webpojja.pasgorasa.site/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-        });
-
-        const data = await res.json();
-        
-        if (res.ok) {
-            alert('Login successful!');
-            // Redirect or store session/token
-            window.location.href = 'dashboard.html'; // Example
-        } else {
-            alert(data.message || 'Login failed');
+        const formData = new FormData(this);
+        const data = new URLSearchParams();
+        for (const pair of formData.entries()) {
+            data.append(pair[0], pair[1]);
         }
-    } catch (err) {
-        alert('An error occurred: ' + err.message);
-    }
-});
-</script>
 
+        try {
+            const res = await fetch('https://webpojja.pasgorasa.site/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: data
+            });
+
+            const json = await res.json();
+
+            if (res.ok) {
+            // Save token and user info in localStorage or sessionStorage
+            localStorage.setItem('token', json.token);
+            localStorage.setItem('user_type', json.user.user_type);
+            localStorage.setItem('username', json.user.username);
+
+            // Redirect based on user type
+            if (json.user.user_type === 'seller') {
+                window.location.href = 'dashboard.html';
+            } else {
+                window.location.href = 'index.html';  // or student page
+            }
+            } else {
+            alert(json.message || 'Login failed');
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
+        });
+    </script>
 </body>
 </html>   
 
