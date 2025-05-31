@@ -72,7 +72,7 @@
   const userType = localStorage.getItem('user_type');
   const username = localStorage.getItem('username');
 
-  if (userType !== 'seller') {
+  if (userType !== 'owner') {
     alert('Access denied');
     window.location.href = 'login.html';
   }

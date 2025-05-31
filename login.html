@@ -100,7 +100,7 @@
             localStorage.setItem('username', json.user.username);
 
             // Redirect based on user type
-            if (json.user.user_type === 'seller') {
+            if (json.user.user_type === 'owner') {
                 window.location.href = 'dashboard.html';
             } else {
                 window.location.href = 'index.html';  // or student page
