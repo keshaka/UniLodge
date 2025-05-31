@@ -597,6 +597,12 @@ footer {
 .wrapper .btn:active {
   transform: scale(0.95);
 }
+
+.register {
+  width: auto;
+  margin: 0;
+}
+
 .register-link a {
   text-decoration: none;
   color: var(--black);
