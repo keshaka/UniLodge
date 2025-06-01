@@ -62,8 +62,36 @@ function switchColour() {
         document.body.classList.add('mode6');
         mode = 6;
     }
-    else if (mode == 6) {
-        document.body.classList.remove('mode6');
-        mode = null;
+        else if (mode == 6) {
+            document.body.classList.remove('mode6');
+            mode = null;
+        }
     }
-}
+
+    function validateForm() {
+        var x = document.forms["myForm"]["fname"].value;
+        var y = document.forms["myForm"]["Lname"].value;
+        var z = document.forms["myForm"]["email"].value;
+        var a = document.forms["myForm"]["masg"].value;
+        
+        if (x == "") {
+            alert("First name must be filled out");
+            return false;
+        }
+        else if (y == "") {
+            alert("Last name must be filled out");
+            return false;
+        }
+        else if (z == "") {
+            alert("Email must be filled out");
+            return false;
+        }
+        else if (a == "") {
+            alert("Message must be filled out");
+            return false;
+        }
+        else {
+            alert("Submit is successful");
+            return true;
+        }
+    }
