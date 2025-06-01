@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Student Accommodation - University of Moratuwa</title>
+    <link rel="stylesheet" href="rooms.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+    <div class="logo">
+        <img src="assets/images/logo.png" alt="Unilodge">
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html" class="active">Rooms</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="header-icons">
+        <a href="login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path></svg></a>
+        <svg class="menu-icon" onclick="showSidebar()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+    </div>
+</header>
+
+
+    <main>
+        <div class="page-title">
+            <h1>Find Student Boardings</h1>
+            <p>Near University of Moratuwa</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search by location, faculty, or Boarding type..." autocomplete="off">
+            </div>
+            <div class="filter-actions">
+                <button class="filter-btn" id="filter-btn">
+                    <i class="fas fa-filter"></i>
+                    Add filters
+                </button>
+                <button class="sort-btn" id="sort-btn">
+                    <i class="fas fa-sort"></i>
+                    Sort by Newest
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter Panel -->
+        <div class="filter-panel" id="filter-panel">
+            <div class="filter-content">
+                <div class="filter-group">
+                    <label>Price Range (LKR per month)</label>
+                    <div class="price-range">
+                        <input type="range" id="min-price" min="10000" max="50000" value="10000">
+                        <input type="range" id="max-price" min="10000" max="50000" value="50000">
+                        <div class="price-values">
+                            <span id="min-price-value">LKR 10,000</span> - <span id="max-price-value">LKR 50,000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Accommodation Type</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="Room" checked> Room</label>
+                        <label><input type="checkbox" value="Boarding House" checked> Boarding House</label>
+                        <label><input type="checkbox" value="Apartment" checked> Apartment</label>
+                        <label><input type="checkbox" value="Studio" checked> Studio</label>
+                        <label><input type="checkbox" value="Annex" checked> Annex</label>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Furnishing</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" value="Fully Furnished" checked> Fully Furnished</label>
+                        <label><input type="checkbox" value="Partially Furnished" checked> Partially Furnished</label>
+                        <label><input type="checkbox" value="Basic Furnished" checked> Basic Furnished</label>
+                    </div>
+                </div>
+                <div class="filter-actions-panel">
+                    <button class="clear-filters">Clear All</button>
+                    <button class="apply-filters">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-count">
+            Available Places: <span id="results-count">0</span>
+        </div>
+
+        <div class="main-content">
+            <div class="listings" id="listings-container">
+                <!-- Listings will be dynamically generated here -->
+            </div>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Unilodge Platform. All rights reserved.</p>
+            <p>Helping UOM students find their perfect accommodation near campus.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="rooms.js"></script>
+</body>
+</html>
