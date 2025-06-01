@@ -703,16 +703,20 @@ footer {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 4500px) {
   .room {
     margin-right: 0;
     margin-left: 0;
   }
   .fot1 {
-    padding: 0%;
+    padding: 50%;
+    margin:auto;
+
   }
   .fot2 {
-    padding: 0%;
+    padding: 50%;
+     margin:auto;
+
   }
   .bottom-footer p{
     padding: 0;
