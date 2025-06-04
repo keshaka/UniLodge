@@ -2263,4 +2263,7 @@ textarea:focus,
   svg {
     max-width: 130px;
   }
+  .top {
+    max-width: 180px;
+  }
 }
