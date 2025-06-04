@@ -480,6 +480,11 @@ footer {
   text-align: center;
 }
 
+  .nav-bar {
+    display: flex;
+  }
+  
+
 /* Enhanced mobile responsiveness for footer */
 @media (max-width: 768px) {
   footer {
@@ -523,7 +528,7 @@ footer {
   }
 }
 
-  
+@media (max-width: 1000px) {  
   .nav-bar {
     display: none;
   }
@@ -548,6 +553,8 @@ footer {
   header svg {
     padding-left: 100px;
   }
+
+}
 
 
 @media (max-width: 950px) {
