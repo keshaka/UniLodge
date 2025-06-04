@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Property - Uni Lodge</title>
-    <link rel="stylesheet" href="add-property.css">
+    <link rel="stylesheet" href="styles/add-property.css">
 </head>
 <body>
     <header>
@@ -63,7 +63,7 @@
                             <option value="Boarding House">Boarding House</option>
                             <option value="Apartment">Apartment</option>
                             <option value="Studio">Studio</option>
-                            <option value="Annex">Annex</option>
+                            <option value="annex">Annex</option>
                         </select>
                     </div>
 
@@ -211,46 +211,74 @@
         document.getElementById('owner_id').value = 123;
 
         document.getElementById('propertyForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('.btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Adding Property...';
-            submitBtn.style.opacity = '0.7';
-            
-            const formData = new FormData(this);
-            const data = new URLSearchParams(formData);
-            
-            try {
-                const res = await fetch('http://localhost:3000/api/properties', {
-                    method: 'POST',
-                    body: data,
-                });
+    e.preventDefault();
 
-                const text = await res.text();
+    const submitBtn = this.querySelector('.btn');
+    const originalText = submitBtn.textContent;
 
-                if (res.ok) {
-                    submitBtn.textContent = 'Property Added!';
-                    submitBtn.style.backgroundColor = '#28a745';
-                    alert("Property added successfully: " + text);
-                    
-                    setTimeout(() => {
-                        window.location.href = "rooms.html";
-                    }, 1500);
-                } else {
-                    throw new Error(text);
-                }
-            } catch (err) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-                submitBtn.style.opacity = '1';
-                submitBtn.style.backgroundColor = '';
-                
-                alert('Error adding property: ' + err.message);
-            }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Adding Property...';
+    submitBtn.style.opacity = '0.7';
+
+    const formData = new FormData(this);
+    const data = {};
+
+    formData.forEach((value, key) => {
+        // Convert checkbox values to boolean
+        if (value === "on") {
+            data[key] = true;
+        } else {
+            data[key] = value;
+        }
+    });
+
+    // Manually handle unchecked checkboxes as false
+    const checkboxFields = [
+        "has_wifi",
+        "has_ac",
+        "has_kitchen",
+        "has_washing_machine",
+        "has_furniture",
+        "has_attached_bathroom"
+    ];
+
+    checkboxFields.forEach(field => {
+        if (!formData.has(field)) {
+            data[field] = false;
+        }
+    });
+
+    try {
+        const res = await fetch('https://webpojja.pasgorasa.site/api/add-property', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
+
+        const text = await res.text();
+
+        if (res.ok) {
+            submitBtn.textContent = 'Property Added!';
+            submitBtn.style.backgroundColor = '#28a745';
+            alert("Property added successfully: " + text);
+
+            setTimeout(() => {
+                window.location.href = "rooms.html";
+            }, 1500);
+        } else {
+            throw new Error(text);
+        }
+    } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.backgroundColor = '';
+
+        alert('Error adding property: ' + err.message);
+    }
+});
         
         document.querySelectorAll('input[required], select[required], textarea[required]').forEach(input => {
             input.addEventListener('blur', function() {
