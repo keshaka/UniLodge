@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Uni Lodge</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/register.css">
 </head>
 <body>
     <header>
@@ -18,30 +18,30 @@
                     <a href="rooms.html" class="nav-link"><li>Rooms</li></a>
                     <a href="#" class="nav-link"><li>About</li></a>
                     <a href="#" class="nav-link"><li>Contact</li></a>
-                    <a href="#" class="nav-link"><li>Login</li></a>
+                    <a href="login.html" class="nav-link"><li>Login</li></a>
                 </ul>
             </nav></div>
         </div>
         <div class="nav-bar">
             <nav>
-                <ul >
+                <ul>
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="rooms.html" class="nav-link">Rooms</a></li>
                     <li><a href="#" class="nav-link">About</a></li>
                     <li><a href="#" class="nav-link">Contact</a></li>
-                    <li><a href="#" class="nav-link">Login</a></li>
+                    <li><a href="login.html" class="nav-link">Login</a></li>
                 </ul>
             </nav>
         </div>
         <div class="header-icons">
             <a href="login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path></svg></a>
-            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg></a>
             <svg class="menu-icon" onclick="showSidebar()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
         </div>
     </header>
-    <main class="register" style="width: 60%;">
-        <div class="wrapper" style="height: 100vh; display: flex; justify-content: center; align-items: center; width: 100%;">
-            <div class="register-form" style="height: auto; width: 50%;">
+    
+    <main class="register">
+        <div class="wrapper">
+            <div class="register-form">
                 <h1>Register</h1>
                 <form id="registerForm">
                     <div class="input-field">
@@ -60,15 +60,45 @@
                         <input type="text" name="full_name" placeholder="Full name" required>
                     </div>
                     <div class="input-field">
-                        <input type="text" name="phone_number" placeholder="Phone_number" required>
+                        <input type="text" name="phone_number" placeholder="Phone number" required>
                     </div>
-                    <div class="input-field" style="margin-bottom: 0; display: flex; left: 40%; align-items: center;">
-                        <select name="user_type" required>
-                            <option value="owner">Seller</option>
-                            <option value="student">Student</option>
-                        </select>
+                    
+                    <!-- User Type Selection -->
+                    <div class="user-type-selection">
+                        <label class="selection-title">I am a:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="student" name="user_type" value="student" checked>
+                                <label for="student" class="radio-label">
+                                    <div class="radio-content">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="option-icon">
+                                            <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                                        </svg>
+                                        <div class="radio-text">
+                                            <span class="radio-title">Student</span>
+                                            <span class="radio-subtitle">Looking for accommodation</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="seller" name="user_type" value="owner">
+                                <label for="seller" class="radio-label">
+                                    <div class="radio-content">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="option-icon">
+                                            <path d="m21.406 6.086-9-4a1.001 1.001 0 0 0-.813 0l-9 4c-.02.009-.034.024-.054.035-.028.014-.058.023-.084.04-.022.015-.039.034-.06.05a.87.87 0 0 0-.19.194c-.02.028-.041.053-.059.081a1.119 1.119 0 0 0-.076.165c-.009.027-.023.052-.031.079A1.013 1.013 0 0 0 2 7v10c0 .396.232.753.594.914l9 4c.13.058.268.086.406.086a.997.997 0 0 0 .406-.086l9-4A.999.999 0 0 0 22 17V7a.999.999 0 0 0-.594-.914zM12 4.15 18.728 7 12 9.85 5.272 7 12 4.15zM4 8.794l7.5 3.333V19.85L4 16.516V8.794zm9.5 3.333L21 8.794v7.722l-7.5 3.334V12.127z"></path>
+                                        </svg>
+                                        <div class="radio-text">
+                                            <span class="radio-title">Property Owner</span>
+                                            <span class="radio-subtitle">Listing accommodation</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn" style="margin-top: 0; width: 50%;">Register</button>
+                    
+                    <button type="submit" class="btn">Register</button>
                     <div class="login-link">
                         <p>Already have an account? <a href="login.html">Login</a></p>
                     </div>
@@ -76,46 +106,64 @@
             </div>
         </div>
     </main>
+    
     <footer>
-        <div class="bottom-footer">
-            <div><p class="fot1">© 2024 Unilodge. All Right Reserved.</p>
-            <p class="fot2">Designed by Team Unilodge. Powered by AWS</p></div>
-        </div>
+    <div class="bottom-footer">
+        <p class="fot1">© 2025 Unilodge. All Right Reserved.</p>
+        <p class="fot2">Designed by Team Unilodge. Powered by AWS</p>
+    </div>
     </footer>
+
+    
     <script>
-    document.getElementById('registerForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const password = formData.get('password');
-      const confirmPassword = formData.get('confirm_password');
-
-      if (password !== confirmPassword) {
-        alert("Passwords do not match.");
-        return;
-      }
-
-      // Remove confirm_password before sending
-      formData.delete('confirm_password');
-
-      const data = new URLSearchParams(formData);
-      try {
-        const res = await fetch('https://webpojja.pasgorasa.site/api/register', {
-          method: 'POST',
-          body: data,
-        });
-
-        const text = await res.text();
-
-        if (res.ok) {
-            alert("Registration successful: " + text);
-            window.location.href = "login.html"; // redirect on success
-        } else {
-            alert("Registration failed: " + text);
+        function showSidebar() {
+            document.querySelector('.side-bar').style.display = 'flex';
+            document.querySelector('.side-bar').style.right = '0';
         }
-      } catch (err) {
-        alert('Registration failed: ' + err.message);
-      }
-    });
-  </script>
+        
+        function hideSidebar() {
+            document.querySelector('.side-bar').style.right = '-100%';
+            setTimeout(() => {
+                document.querySelector('.side-bar').style.display = 'none';
+            }, 300);
+        }
+        
+        function darkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+        
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirm_password');
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                return;
+            }
+
+            formData.delete('confirm_password');
+            const data = new URLSearchParams(formData);
+            
+            try {
+                const res = await fetch('https://webpojja.pasgorasa.site/api/register', {
+                    method: 'POST',
+                    body: data,
+                });
+
+                const text = await res.text();
+
+                if (res.ok) {
+                    alert("Registration successful: " + text);
+                    window.location.href = "login.html";
+                } else {
+                    alert("Registration failed: " + text);
+                }
+            } catch (err) {
+                alert('Registration failed: ' + err.message);
+            }
+        });
+    </script>
 </body>
 </html>

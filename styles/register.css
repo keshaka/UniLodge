@@ -1,0 +1,771 @@
+:root {
+  --black: #000000;
+  --dark: #333;
+  --white: #ffffff;
+  --warm: #faf1ed;
+  --yellow: #a5a800;
+  --light-gray: #f5f5f5;
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+.dark-mode {
+  --black: #fff;
+  --dark: #ffffff;
+  --white: #000000;
+  --warm: #494949;
+  --yellow: #a5a800;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  background-color: var(--white);
+  position: relative;
+  width: 100%;
+  height: 100px;
+  top: 0;
+  z-index: 1000;
+}
+
+header svg {
+  width: 300px;
+  padding-left: 55%;
+}
+
+nav ul {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-left: 0%;
+  margin-right: auto;
+}
+
+.header-icons svg {
+  padding-left: 0;
+  width: auto;
+  margin-right: 55px;
+}
+
+nav li {
+  height: 50px;
+  padding-top: 14px;
+  padding-bottom: 0%;
+  box-sizing: border-box;
+}
+
+nav a:hover {
+  color: var(--yellow);
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.nav-link {
+  font-family: Figtree, sans-serif;
+  color: var(--black);
+  letter-spacing: .25px;
+  margin-left: 4px;
+  margin-right: 4px;
+  padding: 5px 24px;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 170%;
+  text-decoration: none;
+  transition: color .3s;
+}
+
+/* Sidebar Styles */
+.side-bar {
+  position: fixed;
+  right: -100%;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  height: 100vh;
+  width: 250px;
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.side-bar ul {
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.side-bar li {
+  width: 100%;
+}
+
+.side-bar a {
+  width: 100%;
+}
+
+.side-bar svg {
+  width: auto;
+  margin-top: 25px;
+  padding-left: 200px;
+  right: 20px;
+}
+
+.menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.header-icons {
+  margin-right: 120px;
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-icons a {
+  color: var(--black);
+  text-decoration: none;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.header-icons a:hover {
+  background-color: var(--light-gray);
+  transform: scale(1.1);
+}
+
+.menu-btn {
+  padding-left: 0%;
+  display: none;
+}
+
+.close-svg {
+  margin-left: 200px;
+  margin-top: 25px;
+}
+
+.close-svg:hover {
+  background-color: #dddddd;
+}
+
+.menu-svg:hover {
+  background-color: #dddddd;
+}
+
+/* Main Content - FIXED */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.register {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 160px);
+  position: relative;
+  padding: 20px 0;
+}
+
+/* Form Wrapper - FIXED OVERLAPPING */
+.wrapper {
+  border: 2px solid var(--black);
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  padding: 30px;
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.wrapper h1 {
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0 0 25px 0;
+  color: var(--black);
+}
+
+/* Input Fields */
+.input-field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-field input {
+  width: 100%;
+  height: 45px;
+  background: transparent;
+  border: 2px solid var(--black);
+  border-radius: 40px;
+  padding: 12px 18px;
+  font-size: 15px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.input-field input:focus {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 3px rgba(165, 168, 0, 0.1);
+}
+
+.input-field input::placeholder {
+  color: var(--dark);
+  opacity: 0.7;
+}
+
+/* User Type Selection - FIXED */
+.user-type-selection {
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+}
+
+.selection-title {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  width: 100%;
+}
+
+.radio-option {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+/* Hide the default radio button */
+.radio-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+/* Style the custom radio label - FIXED */
+.radio-label {
+  display: block;
+  cursor: pointer;
+  padding: 15px;
+  border: 2px solid var(--black);
+  border-radius: 10px;
+  background-color: var(--white);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.radio-label:hover {
+  background-color: var(--light-gray);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* When radio is checked - change background and icon color */
+.radio-option input[type="radio"]:checked + .radio-label {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+/* Make icon white when selected */
+.radio-option input[type="radio"]:checked + .radio-label .option-icon {
+  fill: var(--white);
+}
+
+/* Default icon color (black) */
+.option-icon {
+  fill: var(--black);
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.radio-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.radio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.radio-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.radio-subtitle {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Submit Button */
+.btn {
+  width: 100%;
+  height: 45px;
+  background: var(--black);
+  border-radius: 40px;
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 18px;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: var(--dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Login Link */
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-link p {
+  color: var(--dark);
+  margin: 0;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: var(--black);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.login-link a:hover {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+/* Footer - Fixed for mobile responsiveness */
+footer {
+  color: #fff;
+  margin: 0;
+  width: 100%;
+  min-height: 60px;
+  background-color: #000;
+  text-align: center;
+  padding: 15px 10px;
+  position: relative;
+  bottom: 0;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+
+.bottom-footer {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.bottom-footer p {
+  font-size: 12px;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.fot1, .fot2 {
+  position: static;
+  transform: none;
+  width: 100%;
+  text-align: center;
+}
+
+/* Enhanced mobile responsiveness for footer */
+@media (max-width: 768px) {
+  footer {
+    padding: 12px 8px;
+    min-height: auto;
+  }
+  
+  .bottom-footer {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+  }
+  
+  .bottom-footer p {
+    font-size: 11px;
+    padding: 0 5px;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 10px 5px;
+  }
+  
+  .bottom-footer {
+    gap: 4px;
+    padding: 5px;
+  }
+  
+  .bottom-footer p {
+    font-size: 10px;
+    padding: 0 3px;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: 320px) {
+  .bottom-footer p {
+    font-size: 9px;
+  }
+}
+
+  
+  .nav-bar {
+    display: none;
+  }
+  
+  .menu-btn {
+    display: flex;
+  }
+  
+  .menu-icon {
+    display: flex;
+  }
+  
+  .header-icons svg {
+    margin-top: 5px;
+    margin-right: 25px;
+  }
+  
+  .header-icons {
+    margin-right: 100px;
+  }
+  
+  header svg {
+    padding-left: 100px;
+  }
+
+
+@media (max-width: 950px) {
+  .header-icons {
+    margin-right: 20px;
+  }
+  
+  header svg {
+    padding-left: 20px;
+    width: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 15px;
+  }
+  
+  .wrapper {
+    padding: 25px 20px;
+    margin: 10px;
+    border-radius: 12px;
+    max-width: calc(100vw - 30px);
+  }
+  
+  .wrapper h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    margin-bottom: 18px;
+  }
+  
+  .input-field input {
+    height: 42px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  
+  .radio-group {
+    gap: 10px;
+  }
+  
+  .radio-label {
+    padding: 12px;
+  }
+  
+  .radio-content {
+    gap: 10px;
+  }
+  
+  .radio-title {
+    font-size: 13px;
+  }
+  
+  .radio-subtitle {
+    font-size: 11px;
+  }
+  
+  .btn {
+    height: 42px;
+    font-size: 15px;
+  }
+  
+  header {
+    height: 80px;
+  }
+  
+  header svg {
+    width: 200px;
+    padding-left: 10px;
+  }
+  
+  .header-icons {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 10px;
+  }
+  
+  .wrapper {
+    margin: 5px;
+    padding: 20px 15px;
+    max-width: calc(100vw - 20px);
+  }
+  
+  .wrapper h1 {
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+  }
+  
+  .input-field {
+    margin-bottom: 15px;
+  }
+  
+  .input-field input {
+    height: 40px;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  
+  .radio-label {
+    padding: 10px;
+  }
+  
+  .radio-content {
+    gap: 8px;
+  }
+  
+  .radio-content svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .btn {
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .bottom-footer p {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  
+  .fot2 {
+    position: static;
+    margin-top: 5px;
+  }
+  
+  .bottom-footer {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+  }
+  
+  footer {
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 8px;
+  }
+  
+  .wrapper {
+    margin: 3px;
+    padding: 18px 12px;
+    max-width: calc(100vw - 16px);
+  }
+  
+  .wrapper h1 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+  }
+  
+  .input-field {
+    margin-bottom: 12px;
+  }
+  
+  .input-field input {
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .radio-label {
+    padding: 8px;
+  }
+  
+  .radio-content {
+    gap: 6px;
+  }
+  
+  .radio-content svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .radio-title {
+    font-size: 12px;
+  }
+  
+  .radio-subtitle {
+    font-size: 10px;
+  }
+  
+  .btn {
+    height: 38px;
+    font-size: 13px;
+  }
+  
+  header svg {
+    width: 160px;
+  }
+  
+  .selection-title {
+    font-size: 13px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+button:focus,
+input:focus,
+.radio-label:focus-within {
+  outline: 2px solid var(--yellow);
+  outline-offset: 2px;
+}
