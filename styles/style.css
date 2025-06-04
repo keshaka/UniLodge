@@ -503,7 +503,6 @@ footer {
 
 .wrapper {
   border: 2px solid var(--black);
-  min-width: 500px;
   height: 500px;
   border-radius: 5%;
   position: relative;
@@ -2203,7 +2202,7 @@ textarea:focus,
 
   .wrapper {
     padding: 2.5%;
-    margin-top: 60px;
+    width: 35%;
   }
 
 }
@@ -2214,6 +2213,9 @@ textarea:focus,
   }
   .logo, header svg{
     padding-left: 0;
+  }
+  .wrapper {
+    width: 80%;
   }
 }
 
@@ -2236,13 +2238,29 @@ textarea:focus,
     text-align: center;
     width: auto;
   }
-  header {
-    width: auto;
-  }
+
   body {
     width: auto;
   }
   footer {
     width: 100%;
+  }
+  .wrapper {
+    padding: 20px;
+    max-width: calc(100vw - 20px);
+  }
+  header {
+    max-width: 100%;
+    max-height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    max-width: 100%;
+    max-height: 50px;
+  }
+  svg {
+    max-width: 130px;
   }
 }
