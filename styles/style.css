@@ -263,10 +263,7 @@ main {
   right: 10%;
   object-fit: cover;
   border-radius: 10%;
-  width: 380px;
-  min-width: 380px;
-  max-width: 380px;
-  height: 380px;
+
 }
 
 .bedimg {
@@ -276,7 +273,6 @@ main {
   object-fit: cover;
   border-radius: 10%;
   width: 380px;
-  min-width: 380px;
   max-width: 380px;
   height: 380px;
 }
@@ -2264,6 +2260,27 @@ textarea:focus,
     max-width: 130px;
   }
   .top {
-    max-width: 180px;
+    max-width: 250px;
+  }
+  .intro-text p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .bedimg {
+    width: 90%;
+    height: auto;
+  }
+  .intro-text {
+    height: auto;
+  }
+  .room-text {
+    width: 90%;
+  }
+  .room-text h1 {
+    font-size: 25px;
+  }
+  .room-images img {
+    width: 80%;
+    align-items: center;
   }
 }
