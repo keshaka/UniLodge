@@ -444,7 +444,7 @@ function renderListings() {
                 <div class="listing-price">LKR ${listing.price.toLocaleString()}/month</div>
                 <div class="listing-address">${listing.address}</div>
                 <div class="listing-address">${listing.addressDetail}</div>
-                <div class="listing-area">${listing.area}</div>
+                <div class="listing-area">${listing.distance}km to university</div>
                 <div class="listing-availability ${availabilityClass}">
                     Available from ${listing.availability}
                 </div>
