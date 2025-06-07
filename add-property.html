@@ -59,16 +59,21 @@
                     <div class="input-field">
                         <select name="property_type" required>
                             <option value="">Select Property Type</option>
-                            <option value="Room">Single Room</option>
-                            <option value="Boarding House">Boarding House</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Studio">Studio</option>
+                            <option value="room">Single Room</option>
                             <option value="annex">Annex</option>
                         </select>
                     </div>
 
                     <div class="input-field">
                         <input type="number" name="price" placeholder="Monthly Rent (LKR)" min="1" required>
+                    </div>
+
+                    <div class="input-field">
+                        <input type="number" name="latitude" placeholder="Latitude" step="any" required>
+                    </div>
+
+                    <div class="input-field">
+                        <input type="number" name="longitude" placeholder="Longitude" step="any" required>
                     </div>
 
                     <div class="input-field">
@@ -81,6 +86,11 @@
 
                     <div class="input-field">
                         <input type="number" name="distance_from_university" placeholder="Distance from UOM (km)" step="0.1" min="0">
+                    </div>
+
+                    <div class="input-field" style="border: 0px;">
+                        <label for="image"  style="border: 0px;">Image</label>
+                        <input type="file"  style="border: 0px;" name="image" id="image" accept="image/*" required>
                     </div>
 
                     <div class="amenities-selection">
@@ -208,9 +218,9 @@
             document.body.classList.toggle('dark-mode');
         }
 
-        document.getElementById('owner_id').value = 123;
+        document.getElementById('owner_id').value = 1;
 
-        document.getElementById('propertyForm').addEventListener('submit', async function(e) {
+document.getElementById('propertyForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const submitBtn = this.querySelector('.btn');
@@ -221,40 +231,43 @@
     submitBtn.style.opacity = '0.7';
 
     const formData = new FormData(this);
-    const data = {};
 
-    formData.forEach((value, key) => {
-        // Convert checkbox values to boolean
-        if (value === "on") {
-            data[key] = true;
-        } else {
-            data[key] = value;
-        }
-    });
+    // Build amenities object
+    const amenities = {
+        has_wifi: formData.has('has_wifi'),
+        has_ac: formData.has('has_ac'),
+        has_kitchen: formData.has('has_kitchen'),
+        has_washing_machine: formData.has('has_washing_machine'),
+        has_hot_water: formData.has('has_hot_water'),
+        has_furniture: formData.has('has_furniture'),
+        has_attached_bathroom: formData.has('has_attached_bathroom'),
+        has_parking: formData.has('has_parking')
+    };
 
-    // Manually handle unchecked checkboxes as false
-    const checkboxFields = [
-        "has_wifi",
-        "has_ac",
-        "has_kitchen",
-        "has_washing_machine",
-        "has_furniture",
-        "has_attached_bathroom"
-    ];
+    // Convert values and build a JSON object
+    const propertyData = {
+        title: formData.get('title'),
+        address: formData.get('address'),
+        property_type: formData.get('property_type'),
+        price: parseFloat(formData.get('price')),
+        capacity: parseInt(formData.get('capacity')),
+        available: formData.get('available') === "1" || formData.get('available') === "true",
+        owner_id: parseInt(formData.get('owner_id')),
+        description: formData.get('description'),
+        distance_from_university: parseFloat(formData.get('distance_from_university')),
+        latitude: parseFloat(formData.get('latitude')),
+        longitude: parseFloat(formData.get('longitude')),
+        amenities: amenities
+    };
 
-    checkboxFields.forEach(field => {
-        if (!formData.has(field)) {
-            data[field] = false;
-        }
-    });
+    // Convert JSON object to string and append to FormData
+    formData.append("data", JSON.stringify(propertyData));
 
+    // Now send using multipart/form-data (automatic with FormData)
     try {
         const res = await fetch('https://webpojja.pasgorasa.site/api/add-property', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body: formData
         });
 
         const text = await res.text();
@@ -279,6 +292,8 @@
         alert('Error adding property: ' + err.message);
     }
 });
+
+
         
         document.querySelectorAll('input[required], select[required], textarea[required]').forEach(input => {
             input.addEventListener('blur', function() {
