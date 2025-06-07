@@ -172,8 +172,9 @@ app.get('/rooms', (req, res) => {
       'Fully Furnished' AS furnishing,
       1 AS baths,
       '1200 sqft' AS area,
-      NULL AS image
+      pi.image_path AS image
     FROM Properties p
+    LEFT JOIN PropertyImages pi ON p.property_id = pi.property_id AND pi.is_primary = 1
   `;
 
   const amenitiesSql = `
