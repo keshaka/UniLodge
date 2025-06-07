@@ -16,20 +16,20 @@
                 <ul>
                     <a href="index.html" class="nav-link"><li>Home</li></a>
                     <a href="rooms.html" class="nav-link"><li>Rooms</li></a>
-                    <a href="#" class="nav-link"><li>About</li></a>
-                    <a href="#" class="nav-link"><li>Contact</li></a>
-                    <a href="login.html" class="nav-link"><li>Login</li></a>
+                    <a href="about.html" class="nav-link"><li>About</li></a>
+                    <a href="contact.html" class="nav-link"><li>Contact</li></a>
+                    <li><span id="pronames"></span></li>
                 </ul>
             </nav></div>
         </div>
         <div class="nav-bar">
             <nav>
-                <ul>
+                <ul >
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="rooms.html" class="nav-link">Rooms</a></li>
-                    <li><a href="#" class="nav-link">About</a></li>
-                    <li><a href="#" class="nav-link">Contact</a></li>
-                    <li><a href="login.html" class="nav-link">Login</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    </li><span id="proname"></span></span></li>
                 </ul>
             </nav>
         </div>
@@ -309,5 +309,30 @@ document.getElementById('propertyForm').addEventListener('submit', async functio
             });
         });
     </script>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const username = localStorage.getItem('username');
+    const proname = document.getElementById('proname');
+    const pronames = document.getElementById('pronames');
+
+    if (proname) {
+      if (username) {
+        proname.innerHTML = `
+          <a href="profile.html" class="nav-link">Hello, ${username}</a>
+        `;
+        pronames.innerHTML = `
+          <a href="profile.html" class="nav-link">Hello, ${username}</a>
+        `;
+      } else {
+        proname.innerHTML = `
+          <a href="login.html" class="nav-link">Login</a>
+        `;
+        pronames.innerHTML = `
+          <a href="login.html" class="nav-link">Login</a>
+        `;
+      }
+    }
+  });
+</script>
 </body>
 </html>

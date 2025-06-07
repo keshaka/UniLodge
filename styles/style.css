@@ -3,7 +3,7 @@
   --dark: #333;
   --white: #ffffff;
   --warm: #faf1ed;
-  --yellow: #a5a800;
+  --yellow: rgb(133, 183, 226);
 }
 
 .dark-mode {
@@ -73,6 +73,7 @@ body {
   align-items: center;
   justify-content: space-between;
   width: auto;
+  min-height: 950px;
 }
 
 header {

@@ -20,7 +20,7 @@
                     <a href="rooms.html" class="nav-link"><li>Rooms</li></a>
                     <a href="about.html" class="nav-link"><li>About</li></a>
                     <a href="contact.html" class="nav-link"><li>Contact</li></a>
-                    <a href="login.html" class="nav-link"><li>Login</li></a>
+                    <li><span id="pronames"></span></li>
                 </ul>
             </nav></div>
         </div>
@@ -31,20 +31,21 @@
                     <li><a href="rooms.html" class="nav-link">Rooms</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li><a href="login.html" class="nav-link">Login</a></li>
+                    </li><span id="proname"></span></span></li>
                 </ul>
             </nav>
         </div>
         <div class="header-icons">
-            <a href="login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path></svg></a>
+            <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path></svg></a>
             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg></a>
             <svg class="menu-icon" onclick="showSidebar()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
         </div>
     </header>
+    <main style="border: 1px; border-radius: 10%; background-color: aliceblue; margin-top: 20px;">
     <h1>Contact us</h1>
     <p>Feel free to use the form or drop us email. Old-fashioned phone calls work too</p>
 
-    <div class="con">
+    <div class="con" >
     <form>
         Name:
         <input type="text" id="firstName" name="firstName" placeholder="First name" required>
@@ -57,7 +58,8 @@
         <input type="button" value="Submit" alert="submitted">
     </form>
 </div>
-    <div class="con">
+</main>
+    <div class="con" style="background-color: aliceblue;">
         <ul>
             <li id="tele">+94711334873</li>
             <li id="email">info@gmail.com</li>
@@ -70,6 +72,31 @@
             <p class="fot2">Designed Team Unilodge. Powered by AWS</p></div>
         </div>
     </footer>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const username = localStorage.getItem('username');
+    const proname = document.getElementById('proname');
+    const pronames = document.getElementById('pronames');
+
+    if (proname) {
+      if (username) {
+        proname.innerHTML = `
+          <a href="profile.html" class="nav-link">Hello, ${username}</a>
+        `;
+        pronames.innerHTML = `
+          <a href="profile.html" class="nav-link">Hello, ${username}</a>
+        `;
+      } else {
+        proname.innerHTML = `
+          <a href="login.html" class="nav-link">Login</a>
+        `;
+        pronames.innerHTML = `
+          <a href="login.html" class="nav-link">Login</a>
+        `;
+      }
+    }
+  });
+</script>
 
     </body>
 </html>
