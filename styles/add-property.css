@@ -3,7 +3,7 @@
   --dark: #333;
   --white: #ffffff;
   --warm: #faf1ed;
-  --yellow: #a5a800;
+  --yellow: rgb(133, 183, 226);
   --light-gray: #f5f5f5;
   --border-radius: 8px;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

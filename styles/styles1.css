@@ -41,7 +41,7 @@
 }
 
 .hero-title:hover {
-    color: #b58900;
+    color: rgb(133, 183, 226);
     transform: scale(1.05);
 }
 
