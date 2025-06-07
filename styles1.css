@@ -1,4 +1,4 @@
-/* Hero Section */
+
 .hero-section {
     background: linear-gradient(135deg, #2aa198 0%, #268bd2 100%);
     padding: 30px;
@@ -55,12 +55,12 @@
     text-align: justify;
 }
 
-/* Foundation Section */
+
 .foundation-section {
     
     margin:30px;
     padding:30px;
-    background-color: #fdf6e3;
+    background-color: #ffffff;
 }
 
 .foundation-content {
@@ -124,7 +124,7 @@
     border-radius: 5%;
 }
 
-/* Footer */
+
 footer {
     background-color: #002b36;
     color: #fdf6e3;
@@ -137,7 +137,6 @@ footer {
     color: #eee8d5;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .hero-title {
         font-size: 2.5rem;
@@ -180,7 +179,7 @@ footer {
     }
 }
 
-/* Animations */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
