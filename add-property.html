@@ -88,10 +88,12 @@
                         <input type="number" name="distance_from_university" placeholder="Distance from UOM (km)" step="0.1" min="0">
                     </div>
 
+                    <!---
                     <div class="input-field" style="border: 0px;">
                         <label for="image"  style="border: 0px;">Image</label>
                         <input type="file"  style="border: 0px;" name="image" id="image" accept="image/*" required>
                     </div>
+                    --->
 
                     <div class="amenities-selection">
                         <label class="selection-title">Available Amenities:</label>
@@ -232,42 +234,39 @@ document.getElementById('propertyForm').addEventListener('submit', async functio
 
     const formData = new FormData(this);
 
-    // Build amenities object
-    const amenities = {
-        has_wifi: formData.has('has_wifi'),
-        has_ac: formData.has('has_ac'),
-        has_kitchen: formData.has('has_kitchen'),
-        has_washing_machine: formData.has('has_washing_machine'),
-        has_hot_water: formData.has('has_hot_water'),
-        has_furniture: formData.has('has_furniture'),
-        has_attached_bathroom: formData.has('has_attached_bathroom'),
-        has_parking: formData.has('has_parking')
-    };
-
-    // Convert values and build a JSON object
-    const propertyData = {
+    // Convert form fields
+    const data = {
         title: formData.get('title'),
         address: formData.get('address'),
         property_type: formData.get('property_type'),
-        price: parseFloat(formData.get('price')),
-        capacity: parseInt(formData.get('capacity')),
-        available: formData.get('available') === "1" || formData.get('available') === "true",
-        owner_id: parseInt(formData.get('owner_id')),
-        description: formData.get('description'),
-        distance_from_university: parseFloat(formData.get('distance_from_university')),
+        price: Number(formData.get('price')),
         latitude: parseFloat(formData.get('latitude')),
         longitude: parseFloat(formData.get('longitude')),
-        amenities: amenities
+        capacity: Number(formData.get('capacity')),
+        available: formData.get('available') === "1", // or true/false if checkbox
+        owner_id: Number(formData.get('owner_id')),
+        description: formData.get('description'),
+        distance_from_university: parseFloat(formData.get('distance_from_university')),
+        image_path: formData.get('image_path') || "uploads/default.jpg", // change as needed
+        amenities: {
+            has_wifi: formData.has('has_wifi'),
+            has_ac: formData.has('has_ac'),
+            has_kitchen: formData.has('has_kitchen'),
+            has_washing_machine: formData.has('has_washing_machine'),
+            has_hot_water: formData.has('has_hot_water'),
+            has_furniture: formData.has('has_furniture'),
+            has_attached_bathroom: formData.has('has_attached_bathroom'),
+            has_parking: formData.has('has_parking')
+        }
     };
 
-    // Convert JSON object to string and append to FormData
-    formData.append("data", JSON.stringify(propertyData));
-
-    // Now send using multipart/form-data (automatic with FormData)
     try {
         const res = await fetch('https://webpojja.pasgorasa.site/api/add-property', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
 
         const text = await res.text();
@@ -292,6 +291,7 @@ document.getElementById('propertyForm').addEventListener('submit', async functio
         alert('Error adding property: ' + err.message);
     }
 });
+
 
 
         

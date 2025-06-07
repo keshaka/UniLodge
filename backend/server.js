@@ -92,69 +92,111 @@ app.post('/login', (req, res) => {
   });
 });
 
-// ? Add Property API
 app.post('/add-property', (req, res) => {
   const {
-    owner_id,
     title,
-    description,
+    address,
+    latitude,
+    longitude,
     property_type,
     price,
-    address,
     capacity,
-    distance_from_university,
     available,
-    has_wifi,
-    has_ac,
-    has_kitchen,
-    has_washing_machine,
-    has_furniture,
-    has_attached_bathroom
+    owner_id, // should come from auth in real apps
+    image_path,
+    amenities, // object: { has_wifi: true, ... }
+    description,
+    distance_from_university
   } = req.body;
 
-  const sqlProperty = `
-    INSERT INTO Properties (
-      owner_id, title, description, property_type, price,
-      address, capacity, distance_from_university, available
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  const insertPropertySql = `
+    INSERT INTO Properties 
+      (title, address, latitude, longitude, property_type, price, capacity, available, owner_id, description, distance_from_university, creation_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
   `;
 
-  const values = [
-    owner_id, title, description, property_type, price,
-    address, capacity || null, distance_from_university || null, available
-  ];
-
-  db.query(sqlProperty, values, (err, result) => {
-    if (err) {
-      console.error('Error inserting property:', err);
-      return res.status(500).json({ message: 'Failed to add property' });
-    }
-
-    const property_id = result.insertId;
-
-    const sqlAmenities = `
-      INSERT INTO PropertyAmenities (
-        property_id, has_wifi, has_ac, has_kitchen,
-        has_washing_machine, has_furniture, has_attached_bathroom
-      ) VALUES (?, ?, ?, ?, ?, ?, ?)
-    `;
-
-    const amenityValues = [
-      property_id,
-      !!has_wifi, !!has_ac, !!has_kitchen,
-      !!has_washing_machine, !!has_furniture, !!has_attached_bathroom
-    ];
-
-    db.query(sqlAmenities, amenityValues, (err) => {
+  db.query(
+    insertPropertySql,
+    [
+      title,
+      address,
+      latitude,
+      longitude,
+      property_type,
+      price,
+      capacity,
+      available,
+      owner_id,
+      description,
+      distance_from_university
+    ],
+    (err, result) => {
       if (err) {
-        console.error('Error inserting amenities:', err);
-        return res.status(500).json({ message: 'Property saved but amenities failed' });
+        console.error('Error inserting property:', err);
+        return res.status(500).json({ message: 'Error adding property' });
       }
 
-      res.status(201).json({ message: 'Property added successfully' });
-    });
-  });
+      const propertyId = result.insertId;
+
+      const insertImageSql = `
+        INSERT INTO PropertyImages (property_id, image_path, is_primary)
+        VALUES (?, ?, 1)
+      `;
+
+      db.query(insertImageSql, [propertyId, image_path], (err2) => {
+        if (err2) {
+          console.error('Error inserting image:', err2);
+          return res.status(500).json({ message: 'Error adding property image' });
+        }
+
+        const defaultAmenities = {
+          has_wifi: 0,
+          has_ac: 0,
+          has_kitchen: 0,
+          has_washing_machine: 0,
+          has_hot_water: 0,
+          has_furniture: 0,
+          has_attached_bathroom: 0,
+          has_parking: 0
+        };
+
+        const fullAmenities = { ...defaultAmenities, ...amenities };
+
+        const insertAmenitiesSql = `
+          INSERT INTO PropertyAmenities (
+            property_id, has_wifi, has_ac, has_kitchen, has_washing_machine,
+            has_hot_water, has_furniture, has_attached_bathroom, has_parking
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        db.query(
+          insertAmenitiesSql,
+          [
+            propertyId,
+            fullAmenities.has_wifi ? 1 : 0,
+            fullAmenities.has_ac ? 1 : 0,
+            fullAmenities.has_kitchen ? 1 : 0,
+            fullAmenities.has_washing_machine ? 1 : 0,
+            fullAmenities.has_hot_water ? 1 : 0,
+            fullAmenities.has_furniture ? 1 : 0,
+            fullAmenities.has_attached_bathroom ? 1 : 0,
+            fullAmenities.has_parking ? 1 : 0
+          ],
+          (err3) => {
+            if (err3) {
+              console.error('Error inserting amenities:', err3);
+              return res.status(500).json({ message: 'Error adding amenities' });
+            }
+
+            res.status(201).json({ message: 'Property added successfully', propertyId });
+          }
+        );
+      });
+    }
+  );
 });
+
+
 
 app.get('/rooms', (req, res) => {
   const propertySql = `
@@ -228,9 +270,92 @@ app.get('/rooms', (req, res) => {
   });
 });
 
+app.get('/seller-dashboard/:username', (req, res) => {
+  const username = req.params.username;
 
-app.get('/room', (req, res) => {
-  res.json({ message: 'Rooms endpoint working' });
+  const getUserSql = `SELECT user_id, username, email, full_name, phone_number FROM Users WHERE username = ? AND user_type = 'owner'`;
+
+  db.query(getUserSql, [username], (err, userResults) => {
+    if (err) {
+      console.error('Error fetching user:', err);
+      return res.status(500).json({ message: 'Error fetching user' });
+    }
+
+    if (userResults.length === 0) {
+      return res.status(404).json({ message: 'User not found or not an owner' });
+    }
+
+    const user = userResults[0];
+
+    const getPropertiesSql = `
+      SELECT property_id, title, price, available
+      FROM Properties
+      WHERE owner_id = ?
+    `;
+
+    db.query(getPropertiesSql, [user.user_id], (err2, properties) => {
+      if (err2) {
+        console.error('Error fetching properties:', err2);
+        return res.status(500).json({ message: 'Error fetching properties' });
+      }
+
+      const totalProperties = properties.length;
+      const availableCount = properties.filter(p => p.available === 1).length;
+      const unavailableCount = totalProperties - availableCount;
+
+      res.json({
+        user: {
+          username: user.username,
+          email: user.email,
+          full_name: user.full_name,
+          phone_number: user.phone_number
+        },
+        stats: {
+          totalProperties,
+          available: availableCount,
+          unavailable: unavailableCount
+        },
+        properties: properties.map(p => ({
+          id: p.property_id,
+          title: p.title,
+          price: p.price,
+          status: p.available ? 'Available' : 'Unavailable'
+        }))
+      });
+    });
+  });
+});
+
+app.delete('/properties/:id', (req, res) => {
+  const propertyId = req.params.id;
+
+  // Delete related amenities and images first to maintain referential integrity
+  const deleteAmenitiesSql = 'DELETE FROM PropertyAmenities WHERE property_id = ?';
+  const deleteImagesSql = 'DELETE FROM PropertyImages WHERE property_id = ?';
+  const deletePropertySql = 'DELETE FROM Properties WHERE property_id = ?';
+
+  db.query(deleteAmenitiesSql, [propertyId], (err1) => {
+    if (err1) {
+      console.error('Error deleting amenities:', err1);
+      return res.status(500).json({ message: 'Error deleting property amenities' });
+    }
+
+    db.query(deleteImagesSql, [propertyId], (err2) => {
+      if (err2) {
+        console.error('Error deleting images:', err2);
+        return res.status(500).json({ message: 'Error deleting property images' });
+      }
+
+      db.query(deletePropertySql, [propertyId], (err3) => {
+        if (err3) {
+          console.error('Error deleting property:', err3);
+          return res.status(500).json({ message: 'Error deleting property' });
+        }
+
+        res.status(200).json({ message: 'Property deleted successfully' });
+      });
+    });
+  });
 });
 
 // ? Basic Health Check
