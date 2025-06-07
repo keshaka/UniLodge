@@ -1121,6 +1121,19 @@ footer {
   text-align: center;
 }
 
+.dashboard-container {
+      max-width: 1100px;
+      width: 900px;
+      font-family: 'Segoe UI', sans-serif;
+      
+      margin: 20px;
+      padding: 20px;
+     
+      background-color: #e0d1d1;
+      border-radius: 10px;
+    
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+ }
 /* Responsive Design */
 @media (max-width: 1300px) {
   .side-bar {
