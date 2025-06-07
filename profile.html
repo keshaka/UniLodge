@@ -46,7 +46,7 @@
 
 
     <main class="profile-main">
-        <section class="profile-container">
+        <section class="profile-container" id="profile-container">
             <div class="profile-photo">
                 <img src="assets/images/default-profile.png" alt="Student Photo">
                 <button class="edit-btn">Edit Photo</button>
@@ -64,7 +64,7 @@
             </div>
         </section>
 
-        <section class="profile-activity">
+        <section class="profile-activity" id="profile-activity">
             <h3>Rental History</h3>
             <ul>
                 <li>
@@ -90,6 +90,47 @@
     
     </footer>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('http://localhost:4000/api/student/1')
+        .then(response => response.json())
+        .then(student => {
+            // Profile Info
+            document.getElementById('profile-container').innerHTML = `
+                <div class="profile-photo">
+                    <img src="${student.photo}" alt="Student Photo" />
+                </div>
+                <div class="profile-info">
+                    <h2>${student.name}</h2>
+                    <p><strong>Email:</strong> ${student.email}</p>
+                    <p><strong>Phone:</strong> ${student.phone}</p>
+                    <p><strong>University:</strong> ${student.university}</p>
+                    <p><strong>Course:</strong> ${student.course}</p>
+                    <p><strong>Year:</strong> ${student.year}</p>
+                    <p><strong>Preferred Room Type:</strong> ${student.preferred_room}</p>
+                </div>
+            `;
+
+            // Rental History
+            let rentalsHTML = '<h3>Rental History</h3><ul>';
+            student.rentals.forEach(rental => {
+                rentalsHTML += `
+                    <li>
+                        <strong>${rental.room}, ${rental.location}</strong><br>
+                        Rented: ${rental.start_date} - ${rental.end_date ? rental.end_date : 'Present'}<br>
+                        Status: <span class="status-${rental.status}">${rental.status.charAt(0).toUpperCase() + rental.status.slice(1)}</span>
+                    </li>
+                `;
+            });
+            rentalsHTML += '</ul>';
+            document.getElementById('profile-activity').innerHTML = rentalsHTML;
+        })
+        .catch(err => {
+            document.getElementById('profile-container').innerHTML = '<p>Error loading profile.</p>';
+        });
+});
+</script>
+
 </html>
 
 
