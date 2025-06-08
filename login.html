@@ -106,6 +106,7 @@
             localStorage.setItem('token', json.token);
             localStorage.setItem('user_type', json.user.user_type);
             localStorage.setItem('username', json.user.username);
+            localStorage.setItem('full_name', json.user.full_name);
 
             // Redirect based on user type
             if (json.user.user_type === 'owner') {
