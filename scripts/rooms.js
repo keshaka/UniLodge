@@ -465,6 +465,13 @@ function renderListings() {
                         ${listing.amenities.map(amenity => `<span class="amenity-tag">${amenity}</span>`).join('')}
                     </div>
                 ` : ''}
+                <div class="listing-actions">
+                    <button class="buy-btn" style="background-color: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 15px; align-item: center; display: flex; justify-content: center; width: 100%;" 
+                            data-property-id="${listing.id}" 
+                            data-owner-id="${listing.owner_id}">
+                    Buy
+                    </button>
+                </div>
             </div>
         `;
         listingCard.addEventListener('click', () => {
@@ -480,6 +487,42 @@ function renderListings() {
         listingsContainer.appendChild(listingCard);
     });
 }
+
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('buy-btn')) {
+    e.stopPropagation(); // prevent map popup triggering
+
+    const propertyId = e.target.getAttribute('data-property-id');
+    const ownerId = e.target.getAttribute('data-owner-id');
+    const studentUsername = localStorage.getItem('username');
+
+    if (!studentUsername) {
+      alert("Please log in to inquire about a property.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    fetch('https://webpojja.pasgorasa.site/api/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        property_id: propertyId,
+        owner_id: ownerId,
+        student_username: studentUsername,
+        message: 'I am interested in this property.'
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || 'Inquiry sent!');
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Failed to send inquiry.");
+    });
+  }
+});
+
 
 // Update results count
 function updateResultsCount() {
