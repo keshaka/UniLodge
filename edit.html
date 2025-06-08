@@ -55,28 +55,24 @@
 
             <!-- Form Fields -->
             <form id="profileForm">
+                <p style="margin-bottom: 0;">Username</p>
                 <div class="input-field">
                     <input type="text" id="username" name="username" placeholder="Username" required>
                 </div>
 
+                <p style="margin-bottom: 0;">Full Name</p>
                 <div class="input-field">
                     <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
                 </div>
 
+                <p style="margin-bottom: 0;">Email</p>
                 <div class="input-field">
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
 
+                <p style="margin-bottom: 0;">Mobile Number</p>
                 <div class="input-field">
                     <input type="tel" id="phone" name="phone" placeholder="Phone Number">
-                </div>
-
-                <div class="input-field">
-                    <input type="text" id="university" name="university" placeholder="University">
-                </div>
-
-                <div class="input-field">
-                    <input type="text" id="course" name="course" placeholder="Course">
                 </div>
 
                 <div class="password-section">
@@ -112,17 +108,24 @@
     </footer>
 
     <script>
-        // Profile picture preview
-        document.getElementById('profilePictureInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('profileImage').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+
+        if (!username) return window.location.href = 'login.html';
+
+        fetch(`https://webpojja.pasgorasa.site/api/user/${username}`)
+            .then(res => res.json())
+            .then(user => {
+            document.getElementById('username').value = user.username;
+            document.getElementById('fullName').value = user.full_name;
+            document.getElementById('email').value = user.email;
+            document.getElementById('phone').value = user.phone_number;
+            })
+            .catch(err => {
+            console.error('Failed to load profile:', err);
+            });
         });
+
 
         // Sidebar functions
         function showSidebar() {
@@ -180,10 +183,39 @@
         }
 
         // Form submission
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Profile updated successfully!');
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const username = localStorage.getItem('username');
+
+        const payload = {
+            full_name: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone_number: document.getElementById('phone').value,
+            current_password: document.getElementById('currentPassword').value,
+            new_password: document.getElementById('newPassword').value
+        };
+
+        try {
+            const res = await fetch(`https://webpojja.pasgorasa.site/api/user/${username}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+            alert('Profile updated successfully');
+            window.location.href = 'profile.html';
+            } else {
+            alert(result.message || 'Failed to update profile');
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
         });
+
     </script>
 </body>
 </html>
