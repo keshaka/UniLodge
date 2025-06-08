@@ -95,7 +95,7 @@ app.post('/login', (req, res) => {
       return res.status(401).json({ message: 'Invalid username or password' });
 
     const token = jwt.sign(
-      { user_id: user.id, username: user.username, user_type: user.user_type, full_name: user.full_name },
+      { user_id: user.user_id, username: user.username, user_type: user.user_type, full_name: user.full_name },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -104,7 +104,7 @@ app.post('/login', (req, res) => {
       message: 'Login successful',
       token,
       user: {
-        id: user.id,
+        user_id: user.user_id,
         username: user.username,
         user_type: user.user_type,
         full_name: user.full_name
