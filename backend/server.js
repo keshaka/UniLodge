@@ -26,7 +26,7 @@ db.connect(err => {
   console.log('Connected to database.');
 });
 
-// ? Register API
+
 app.post('/register', async (req, res) => {
   const { username, email, password, full_name, phone_number, user_type } = req.body;
 
@@ -50,7 +50,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// ? Login API
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
