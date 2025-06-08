@@ -1,0 +1,489 @@
+/* Edit Profile Page CSS - Fixed Alignment and Double Arrow Issues */
+
+/* Override conflicting styles from style.css */
+.wrapper {
+    border: 2px solid var(--black) !important;
+    height: auto !important;
+    border-radius: 20px !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 550px !important;
+    padding: 35px !important;
+    margin: 25px auto !important;
+    box-sizing: border-box !important;
+}
+
+.wrapper h1 {
+    font-size: 2.5rem !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+    color: var(--black) !important;
+    font-weight: bold !important;
+}
+
+/* Form container for perfect center alignment */
+.wrapper form {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* Profile Picture Section */
+.profile-picture-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+}
+
+.profile-picture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--black);
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.profile-picture:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.upload-btn {
+    background: var(--white);
+    border: 2px solid var(--black);
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--black);
+}
+
+.upload-btn:hover {
+    background: var(--black);
+    color: var(--white);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ALL INPUT FIELDS - PERFECTLY CENTERED */
+.wrapper .input-field {
+    position: relative !important;
+    width: 420px !important;
+    margin: 18px auto !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    justify-content: center !important;
+    height: auto !important;
+}
+
+.wrapper .input-field input {
+    width: 100% !important;
+    padding: 15px 25px !important;
+    border: 2px solid var(--black) !important;
+    border-radius: 40px !important;
+    font-size: 16px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    background: var(--white) !important;
+    color: var(--black) !important;
+    transition: all 0.3s ease !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    height: 50px !important;
+    text-align: left !important;
+    position: static !important;
+    left: auto !important;
+}
+
+.wrapper .input-field input:focus {
+    border-color: var(--yellow) !important;
+    box-shadow: 0 0 0 3px rgba(165, 168, 0, 0.2) !important;
+    transform: translateY(-1px) !important;
+}
+
+.wrapper .input-field input::placeholder {
+    color: var(--dark) !important;
+    opacity: 0.7 !important;
+}
+
+/* Password Section - SAME ALIGNMENT AS OTHER INPUTS */
+.password-section {
+    width: 100% !important;
+    margin: 25px 0 0 0 !important;
+    padding-top: 25px !important;
+    border-top: 1px solid #eee !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.password-section h3 {
+    color: var(--black) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    margin-bottom: 20px !important;
+    font-size: 18px !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+}
+
+/* PASSWORD INPUT FIELDS - SAME AS REGULAR INPUTS */
+.password-section .input-field {
+    position: relative !important;
+    width: 420px !important;
+    margin: 18px auto !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    justify-content: center !important;
+    height: auto !important;
+}
+
+.password-section .input-field input {
+    width: 100% !important;
+    padding: 15px 25px !important;
+    border: 2px solid var(--black) !important;
+    border-radius: 40px !important;
+    font-size: 16px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    background: var(--white) !important;
+    color: var(--black) !important;
+    transition: all 0.3s ease !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    height: 50px !important;
+    text-align: left !important;
+    position: static !important;
+    left: auto !important;
+}
+
+/* Enhanced buttons - PERFECTLY CENTERED */
+.wrapper .btn {
+    width: 420px !important;
+    height: 50px !important;
+    background: var(--black) !important;
+    border-radius: 40px !important;
+    border: none !important;
+    color: var(--white) !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    margin: 15px auto !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    transition: all 0.3s ease !important;
+    display: block !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
+
+.wrapper .btn:hover {
+    background: var(--dark) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.wrapper .btn:active {
+    transform: translateY(0) !important;
+}
+
+/* Button Secondary Style */
+.btn-secondary {
+    background: var(--white) !important;
+    color: var(--black) !important;
+    border: 2px solid var(--black) !important;
+}
+
+.btn-secondary:hover {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Back link styling - FIXED SINGLE ARROW */
+.register {
+    margin-top: 20px !important;
+    text-align: center !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.register-link {
+    display: inline-block !important;
+}
+
+.register-link a {
+    text-decoration: none !important;
+    color: var(--black) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    padding: 12px 24px !important;
+    border: 2px solid transparent !important;
+    border-radius: 25px !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.register-link a:hover {
+    color: var(--white) !important;
+    background: var(--black) !important;
+    border-color: var(--black) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* REMOVE THE DOUBLE ARROW - Override the style.css pseudo-element */
+.register-link a::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* Hide file input */
+input[type="file"] {
+    display: none !important;
+}
+
+/* Success/Error states for edit form */
+.input-field.success input {
+    border-color: #28a745 !important;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2) !important;
+}
+
+.input-field.error input {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2) !important;
+}
+
+.error-message {
+    color: #dc3545 !important;
+    font-size: 12px !important;
+    margin-top: 5px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Loading state for buttons */
+.btn.loading {
+    opacity: 0.7 !important;
+    cursor: not-allowed !important;
+}
+
+.btn.loading:hover {
+    transform: none !important;
+}
+
+/* Enhanced animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wrapper {
+    animation: fadeInUp 0.5s ease-out !important;
+}
+
+/* Form validation styling */
+.input-field input:valid:not(:placeholder-shown) {
+    border-color: #28a745 !important;
+}
+
+.input-field input:invalid:not(:focus):not(:placeholder-shown) {
+    border-color: #dc3545 !important;
+}
+
+/* Responsive adjustments for edit page */
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 30px 25px !important;
+        margin: 20px 15px !important;
+        max-width: none !important;
+        width: calc(100% - 30px) !important;
+    }
+    
+    .wrapper .input-field {
+        width: 100% !important;
+    }
+    
+    .password-section .input-field {
+        width: 100% !important;
+    }
+    
+    .wrapper .btn {
+        width: 100% !important;
+    }
+    
+    .profile-picture {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .upload-btn {
+        padding: 6px 16px;
+        font-size: 13px;
+    }
+    
+    .password-section h3 {
+        font-size: 16px !important;
+    }
+    
+    .wrapper .input-field input {
+        padding: 12px 20px !important;
+        font-size: 15px !important;
+        height: 45px !important;
+    }
+    
+    .password-section .input-field input {
+        padding: 12px 20px !important;
+        font-size: 15px !important;
+        height: 45px !important;
+    }
+    
+    .wrapper .btn {
+        height: 45px !important;
+        font-size: 16px !important;
+    }
+    
+    .register-link a {
+        font-size: 14px !important;
+        padding: 10px 20px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .wrapper {
+        padding: 25px 20px !important;
+        margin: 15px 10px !important;
+        width: calc(100% - 20px) !important;
+    }
+    
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .upload-btn {
+        padding: 5px 14px;
+        font-size: 12px;
+    }
+    
+    .password-section {
+        margin-top: 20px !important;
+        padding-top: 20px !important;
+    }
+    
+    .password-section h3 {
+        font-size: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .wrapper .input-field {
+        margin: 15px auto !important;
+    }
+    
+    .password-section .input-field {
+        margin: 15px auto !important;
+    }
+    
+    .wrapper .input-field input {
+        padding: 10px 18px !important;
+        font-size: 14px !important;
+        height: 42px !important;
+    }
+    
+    .password-section .input-field input {
+        padding: 10px 18px !important;
+        font-size: 14px !important;
+        height: 42px !important;
+    }
+    
+    .wrapper .btn {
+        height: 42px !important;
+        font-size: 15px !important;
+        margin: 12px auto !important;
+    }
+    
+    .register-link a {
+        font-size: 13px !important;
+        padding: 8px 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 20px 15px !important;
+        margin: 10px 5px !important;
+        width: calc(100% - 10px) !important;
+        border-radius: 15px !important;
+    }
+    
+    .profile-picture {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .upload-btn {
+        padding: 4px 12px;
+        font-size: 11px;
+    }
+    
+    .wrapper .input-field {
+        margin: 12px auto !important;
+    }
+    
+    .password-section .input-field {
+        margin: 12px auto !important;
+    }
+    
+    .wrapper .input-field input {
+        padding: 8px 16px !important;
+        font-size: 13px !important;
+        height: 38px !important;
+    }
+    
+    .password-section .input-field input {
+        padding: 8px 16px !important;
+        font-size: 13px !important;
+        height: 38px !important;
+    }
+    
+    .wrapper .btn {
+        height: 38px !important;
+        font-size: 14px !important;
+        margin: 10px auto !important;
+    }
+    
+    .register-link a {
+        font-size: 12px !important;
+        padding: 6px 14px !important;
+    }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+input:focus,
+a:focus {
+    outline: 2px solid var(--yellow) !important;
+    outline-offset: 2px !important;
+}
