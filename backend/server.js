@@ -75,7 +75,7 @@ app.post('/login', (req, res) => {
       return res.status(401).json({ message: 'Invalid username or password' });
 
     const token = jwt.sign(
-      { user_id: user.id, username: user.username, user_type: user.user_type },
+      { user_id: user.id, username: user.username, user_type: user.user_type, full_name: user.full_name },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -86,7 +86,8 @@ app.post('/login', (req, res) => {
       user: {
         id: user.id,
         username: user.username,
-        user_type: user.user_type
+        user_type: user.user_type,
+        full_name: user.full_name
       }
     });
   });
@@ -210,6 +211,7 @@ app.get('/rooms', (req, res) => {
       p.price,
       p.capacity AS beds,
       p.available,
+      p.owner_id,
       p.creation_date AS datePosted,
       'Fully Furnished' AS furnishing,
       1 AS baths,
@@ -217,6 +219,7 @@ app.get('/rooms', (req, res) => {
       pi.image_path AS image
     FROM Properties p
     LEFT JOIN PropertyImages pi ON p.property_id = pi.property_id AND pi.is_primary = 1
+    WHERE p.available = 1
   `;
 
   const amenitiesSql = `
@@ -256,6 +259,7 @@ app.get('/rooms', (req, res) => {
         price: p.price,
         beds: p.beds,
         baths: p.baths,
+        owner_id: p.owner_id,
         distance: p.distance,
         furnishing: p.furnishing,
         availability: p.available ? 'Now' : 'Unavailable',
@@ -428,14 +432,16 @@ app.get('/inquiries/:username', (req, res) => {
     // 2️⃣ Build query based on role
     if (userType === 'student') {
       sql = `
-        SELECT i.inquiry_id, i.property_id, i.message, i.inquiry_date, i.status,
-               p.title AS property_title, u.full_name AS owner_name
-        FROM Inquiries i
-        JOIN Properties p ON i.property_id = p.property_id
-        JOIN Users u ON i.owner_id = u.user_id
-        WHERE i.student_id = ?
-        ORDER BY i.inquiry_date DESC
-      `;
+      SELECT i.inquiry_id, i.property_id, i.message, i.inquiry_date, i.status,
+            p.title AS property_title,
+            u.full_name AS owner_name,
+            u.phone_number AS owner_phone
+      FROM Inquiries i
+      JOIN Properties p ON i.property_id = p.property_id
+      JOIN Users u ON i.owner_id = u.user_id
+      WHERE i.student_id = ?
+      ORDER BY i.inquiry_date DESC
+    `;
       params = [userId];
 
     } else if (userType === 'owner') {
@@ -474,7 +480,11 @@ app.get('/inquiries/:username', (req, res) => {
         inquiry_date: row.inquiry_date,
         status: row.status,
         property_title: row.property_title,
-        counterparty_name: userType === 'student' ? row.owner_name : row.student_name
+        counterparty_name: userType === 'student' ? row.owner_name : row.student_name,
+        seller_contact: row.status === 'accepted' ? {
+          name: row.owner_name,
+          phone: row.owner_phone
+        } : null
       }));
 
       res.json({ userType, inquiries });
@@ -510,7 +520,7 @@ app.post('/accept/:inquiryId', (req, res) => {
     if (err || rows.length === 0) return res.status(400).json({ message: 'Invalid inquiry' });
 
     const propertyId = rows[0].property_id;
-    const updateInquiry = 'UPDATE Inquiries SET status = "closed" WHERE inquiry_id = ?';
+    const updateInquiry = 'UPDATE Inquiries SET status = "accepted" WHERE inquiry_id = ?';
     const updateProperty = 'UPDATE Properties SET available = 0 WHERE property_id = ?';
 
     db.query(updateInquiry, [inquiryId], err2 => {
@@ -528,7 +538,7 @@ app.post('/accept/:inquiryId', (req, res) => {
 // Decline Inquiry (Only close inquiry)
 app.post('/decline/:inquiryId', (req, res) => {
   const inquiryId = req.params.inquiryId;
-  const updateSql = 'UPDATE Inquiries SET status = "closed" WHERE inquiry_id = ?';
+  const updateSql = 'UPDATE Inquiries SET status = "rejected" WHERE inquiry_id = ?';
   db.query(updateSql, [inquiryId], err => {
     if (err) return res.status(500).json({ message: 'Error declining inquiry' });
     res.json({ message: 'Inquiry declined' });
@@ -545,7 +555,7 @@ app.post('/create', (req, res) => {
   const findStudent = `SELECT user_id FROM Users WHERE username = ? AND user_type = 'student'`;
   db.query(findStudent, [student_username], (err, result) => {
     if (err || result.length === 0) {
-      return res.status(404).json({ message: 'Student not found' });
+      return res.status(404).json({ message: 'You need to have a student account for buying' });
     }
 
     const student_id = result[0].user_id;
