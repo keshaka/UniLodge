@@ -26,6 +26,26 @@ db.connect(err => {
   console.log('Connected to database.');
 });
 
+const multer = require('multer');
+const path = require('path');
+
+// Configure storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '/var/www/html/assets/images/properties'); // Folder to save images
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, 'property-' + uniqueSuffix + ext);
+  }
+});
+
+const upload = multer({ storage });
+
+app.use('/assets', express.static('/var/www/html/assets'));
+
+
 // ? Register API
 app.post('/register', async (req, res) => {
   const { username, email, password, full_name, phone_number, user_type } = req.body;
@@ -93,7 +113,7 @@ app.post('/login', (req, res) => {
   });
 });
 
-app.post('/add-property', (req, res) => {
+app.post('/add-property', upload.single('image'), (req, res) => {
   const {
     title,
     address,
@@ -103,12 +123,13 @@ app.post('/add-property', (req, res) => {
     price,
     capacity,
     available,
-    owner_id, // should come from auth in real apps
-    image_path,
-    amenities, // object: { has_wifi: true, ... }
+    owner_id,
+    amenities,
     description,
     distance_from_university
   } = req.body;
+
+  const image_path = req.file ? '/assets/images/properties/' + req.file.filename : '/assets/images/default.jpg';
 
   const insertPropertySql = `
     INSERT INTO Properties 

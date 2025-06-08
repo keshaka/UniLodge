@@ -45,7 +45,7 @@
                 <h1>Add Your Property</h1>
                 <p class="subtitle">List your accommodation for students</p>
                 
-                <form id="propertyForm">
+                <form id="propertyForm" enctype="multipart/form-data">
                     <input type="hidden" id="owner_id" name="owner_id" value="">
 
                     <div class="input-field">
@@ -88,12 +88,11 @@
                         <input type="number" name="distance_from_university" placeholder="Distance from UOM (km)" step="0.1" min="0">
                     </div>
 
-                    <!---
                     <div class="input-field" style="border: 0px;">
                         <label for="image"  style="border: 0px;">Image</label>
                         <input type="file"  style="border: 0px;" name="image" id="image" accept="image/*" required>
                     </div>
-                    --->
+
 
                     <div class="amenities-selection">
                         <label class="selection-title">Available Amenities:</label>
@@ -223,73 +222,44 @@
         document.getElementById('owner_id').value = 1;
 
 document.getElementById('propertyForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const submitBtn = this.querySelector('.btn');
-    const originalText = submitBtn.textContent;
+  const submitBtn = this.querySelector('.btn');
+  const originalText = submitBtn.textContent;
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Adding Property...';
-    submitBtn.style.opacity = '0.7';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Adding Property...';
+  submitBtn.style.opacity = '0.7';
 
-    const formData = new FormData(this);
+  const formData = new FormData(this); // ⬅️ Keep this as FormData
 
-    // Convert form fields
-    const data = {
-        title: formData.get('title'),
-        address: formData.get('address'),
-        property_type: formData.get('property_type'),
-        price: Number(formData.get('price')),
-        latitude: parseFloat(formData.get('latitude')),
-        longitude: parseFloat(formData.get('longitude')),
-        capacity: Number(formData.get('capacity')),
-        available: formData.get('available') === "1", // or true/false if checkbox
-        owner_id: Number(formData.get('owner_id')),
-        description: formData.get('description'),
-        distance_from_university: parseFloat(formData.get('distance_from_university')),
-        image_path: formData.get('image_path') || "uploads/default.jpg", // change as needed
-        amenities: {
-            has_wifi: formData.has('has_wifi'),
-            has_ac: formData.has('has_ac'),
-            has_kitchen: formData.has('has_kitchen'),
-            has_washing_machine: formData.has('has_washing_machine'),
-            has_hot_water: formData.has('has_hot_water'),
-            has_furniture: formData.has('has_furniture'),
-            has_attached_bathroom: formData.has('has_attached_bathroom'),
-            has_parking: formData.has('has_parking')
-        }
-    };
+  try {
+    const res = await fetch('https://webpojja.pasgorasa.site/api/add-property', {
+      method: 'POST',
+      body: formData, // ⬅️ Directly pass FormData, no headers needed
+    });
 
-    try {
-        const res = await fetch('https://webpojja.pasgorasa.site/api/add-property', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+    const text = await res.text();
 
-        const text = await res.text();
+    if (res.ok) {
+      submitBtn.textContent = 'Property Added!';
+      submitBtn.style.backgroundColor = '#28a745';
+      alert("Property added successfully: " + text);
 
-        if (res.ok) {
-            submitBtn.textContent = 'Property Added!';
-            submitBtn.style.backgroundColor = '#28a745';
-            alert("Property added successfully: " + text);
-
-            setTimeout(() => {
-                window.location.href = "rooms.html";
-            }, 1500);
-        } else {
-            throw new Error(text);
-        }
-    } catch (err) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        submitBtn.style.opacity = '1';
-        submitBtn.style.backgroundColor = '';
-
-        alert('Error adding property: ' + err.message);
+      setTimeout(() => {
+        window.location.href = "rooms.html";
+      }, 1500);
+    } else {
+      throw new Error(text);
     }
+  } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+    submitBtn.style.opacity = '1';
+    submitBtn.style.backgroundColor = '';
+
+    alert('Error adding property: ' + err.message);
+  }
 });
 
 
