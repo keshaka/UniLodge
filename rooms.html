@@ -112,30 +112,32 @@
         </div>
     </footer>
     <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const username = localStorage.getItem('username');
-    const proname = document.getElementById('proname');
-    const pronames = document.getElementById('pronames');
+    document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        const fullName = localStorage.getItem('full_name');
+        const firstName = fullName.split(' ')[0];
+        const proname = document.getElementById('proname');
+        const pronames = document.getElementById('pronames');
 
-    if (proname) {
-      if (username) {
-        proname.innerHTML = `
-          <a href="profile.html" class="nav-link">Hello, ${username}</a>
-        `;
-        pronames.innerHTML = `
-          <a href="profile.html" class="nav-link">Hello, ${username}</a>
-        `;
-      } else {
-        proname.innerHTML = `
-          <a href="login.html" class="nav-link">Login</a>
-        `;
-        pronames.innerHTML = `
-          <a href="login.html" class="nav-link">Login</a>
-        `;
-      }
-    }
-  });
-</script>
+        if (proname) {
+        if (username) {
+            proname.innerHTML = `
+            <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
+            `;
+            pronames.innerHTML = `
+            <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
+            `;
+        } else {
+            proname.innerHTML = `
+            <a href="login.html" class="nav-link">Login</a>
+            `;
+            pronames.innerHTML = `
+            <a href="login.html" class="nav-link">Login</a>
+            `;
+        }
+        }
+    });
+    </script>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="scripts/rooms.js"></script>

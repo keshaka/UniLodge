@@ -323,19 +323,21 @@
     .catch(err => console.error('Decline failed:', err));
   }
   </script>
-  <script>
+<script>
   document.addEventListener('DOMContentLoaded', () => {
     const username = localStorage.getItem('username');
+    const fullName = localStorage.getItem('full_name');
+    const firstName = fullName.split(' ')[0];
     const proname = document.getElementById('proname');
     const pronames = document.getElementById('pronames');
 
     if (proname) {
       if (username) {
         proname.innerHTML = `
-          <a href="profile.html" class="nav-link">Hello, ${username}</a>
+          <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
         `;
         pronames.innerHTML = `
-          <a href="profile.html" class="nav-link">Hello, ${username}</a>
+          <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
         `;
       } else {
         proname.innerHTML = `
