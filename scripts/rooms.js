@@ -465,6 +465,13 @@ function renderListings() {
                         ${listing.amenities.map(amenity => `<span class="amenity-tag">${amenity}</span>`).join('')}
                     </div>
                 ` : ''}
+                <div class="listing-actions">
+                    <button class="buy-btn" style="background-color: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-top: 15px; align-item: center; display: flex; justify-content: center; width: 100%;" 
+                            data-property-id="${listing.id}" 
+                            data-owner-id="${listing.owner_id}">
+                    Buy
+                    </button>
+                </div>
             </div>
         `;
         listingCard.addEventListener('click', () => {
