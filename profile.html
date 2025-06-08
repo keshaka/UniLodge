@@ -144,7 +144,12 @@ fetch(`https://webpojja.pasgorasa.site/api/inquiries/${username}`)
           <p><strong>Property:</strong> ${inq.property_title}</p>
           <p><strong>Message:</strong> ${inq.message}</p>
           <p><strong>Status:</strong> ${inq.status}</p>
-          <small>${new Date(inq.inquiry_date).toLocaleString()}</small><br>
+          <small>${new Date(inq.inquiry_date).toLocaleString()}</small>
+          ${inq.status === 'accepted' && inq.seller_contact ? `
+            <p><strong>Seller Name:</strong> ${inq.seller_contact.name}</p>
+            <p><strong>Seller Phone:</strong> ${inq.seller_contact.phone}</p>
+          ` : ''}
+          <br>
           <button onclick="deleteInquiry(${inq.inquiry_id})" class="btn" style="margin-top: 10px;">Delete</button>
         </div>
       `).join('');
