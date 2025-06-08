@@ -66,4 +66,76 @@ function switchColour() {
         document.body.classList.remove('mode6');
         mode = null;
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+// Advanced Review Section Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const reviewCards = document.querySelectorAll('.review-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+
+            const filter = this.getAttribute('data-filter');
+            
+            reviewCards.forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    const category = card.getAttribute('data-category');
+                    if (category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
+
+    // Helpful button functionality
+    const helpfulBtns = document.querySelectorAll('.helpful-btn');
+    helpfulBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const countSpan = this.querySelector('.count');
+            let count = parseInt(countSpan.textContent);
+            
+            if (this.classList.contains('voted')) {
+                count--;
+                this.classList.remove('voted');
+                this.style.background = '';
+                this.style.color = '';
+            } else {
+                count++;
+                this.classList.add('voted');
+                this.style.background = 'var(--black)';
+                this.style.color = 'var(--white)';
+            }
+            
+            countSpan.textContent = count;
+        });
+    });
+
+    // Load more functionality
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            // Simulate loading more reviews
+            this.innerHTML = '<span class="text">Loading...</span>';
+            
+            setTimeout(() => {
+                this.innerHTML = '<span class="text">Load More Reviews</span><span class="icon">↓</span>';
+                // Here you would typically load more reviews from your API
+            }, 1000);
+        });
+    }
+});
+>>>>>>> Stashed changes
