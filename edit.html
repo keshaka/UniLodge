@@ -179,10 +179,39 @@
         }
 
         // Form submission
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Profile updated successfully!');
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const username = localStorage.getItem('username');
+
+        const payload = {
+            full_name: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone_number: document.getElementById('phone').value,
+            current_password: document.getElementById('currentPassword').value,
+            new_password: document.getElementById('newPassword').value
+        };
+
+        try {
+            const res = await fetch(`https://webpojja.pasgorasa.site/api/user/${username}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+            alert('Profile updated successfully');
+            window.location.href = 'profile.html';
+            } else {
+            alert(result.message || 'Failed to update profile');
+            }
+        } catch (err) {
+            alert('Error: ' + err.message);
+        }
         });
+
     </script>
 </body>
 </html>
