@@ -533,7 +533,7 @@ main {
 
 /* Mid Stripe */
 .mid-stripe {
-  width: 100%;
+  width: 100vw;
   background-color: var(--warm);
   padding: 5%;
   text-align: center;
@@ -845,7 +845,7 @@ footer {
   }
 
   .action-button {
-    width: 35%;
+    width: 25%;
   }
 }
 
