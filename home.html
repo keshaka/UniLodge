@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uni Lodge Renting</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/home.css">
     <link rel="icon" href="assests/icons/favicon.png" type="image/x-icon">
     <script src="script.js"></script>
 </head>
@@ -16,22 +16,22 @@
             <div>
             <nav>
                 <ul>
-                    <a href="#" class="nav-link"><li>Home</li></a>
+                    <a href="index.html" class="nav-link"><li>Home</li></a>
                     <a href="rooms.html" class="nav-link"><li>Rooms</li></a>
-                    <a href="#" class="nav-link"><li>About</li></a>
-                    <a href="#" class="nav-link"><li>Contact</li></a>
-                    <a href="login.html" class="nav-link"><li>Login</li></a>
+                    <a href="about.html" class="nav-link"><li>About</li></a>
+                    <a href="login.html" class="nav-link"><li>Contact</li></a>
+                    <!-- <a href="login.html" class="nav-link"><li>Login</li></a> -->
                 </ul>
             </nav></div>
         </div>
         <div class="nav-bar">
             <nav>
                 <ul>
-                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="rooms.html" class="nav-link">Rooms</a></li>
-                    <li><a href="#" class="nav-link">About</a></li>
-                    <li><a href="#" class="nav-link">Contact</a></li>
-                    <li><a href="login.html" class="nav-link">Login</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <!-- <li><a href="login.html" class="nav-link">Login</a></li> -->
                 </ul>
             </nav>
         </div>
@@ -225,18 +225,48 @@
                 </div>
             </div>
         </section>
-        
-        <div class="room-buy">
-            <a href="rooms.html"><p>Find Your Home</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg></a>
+
+    <div class="action-buttons-section">
+            <div class="buttons-container">
+                <div class="action-button student-button">
+                    <div class="button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                        </svg>
+                    </div>
+                    <div class="button-content">
+                        <h3>For Students</h3>
+                        <p>Find your perfect accommodation</p>
+                        <a href="rooms.html" class="cta-btn">Explore Rooms</a>
+                    </div>
+                </div>
+
+                <div class="action-button seller-button">
+                    <div class="button-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <div class="button-content">
+                        <h3>For Property Owners</h3>
+                        <p>List your property and earn</p>
+                        <a href="login.html" class="cta-btn">Join as Owner</a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- <div class="room-buy">
+            <a href="rooms.html"><p>Find Your Home</p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: var(--black);"><path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg></a>
+        </div> -->
     </main>
     <div class="mid-stripe">
-        <div>
-            <p class="mid2">Planning to rent your house or rooms?</p>
-            <h1 class="mid1">Unilodge is the best place!</h1>
-            <a class="hover-ani" href="login.html"><p>Join us</p></a>
-        </div>
+    <div>
+        <p class="mid2">Your journey to comfortable living starts here</p>
+        <p class="mid1"><h1>Home Away From Home, Guaranteed!</h1></p>
     </div>
+</div>
+        
+        
     <footer>
         <div class="bottom-footer">
             <p class="fot1">© 2025 Unilodge. All Right Reserved.</p>
