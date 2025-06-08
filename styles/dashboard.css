@@ -1,0 +1,425 @@
+/* Seller Dashboard CSS - Matching UniLodge Theme */
+
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif !important;
+    background: var(--white) !important;
+    color: var(--dark) !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-x: hidden !important;
+}
+
+/* Main container */
+main {
+    flex: 1;
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 160px);
+}
+
+/* Dashboard container - Redesigned */
+.dashboard-container {
+    width: 100% !important;
+    max-width: 1200px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    margin: 0 auto !important;
+    padding: 2rem !important;
+    background: var(--white) !important;
+    border: 2px solid var(--black) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Header section */
+.header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 2rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 2px solid var(--black) !important;
+}
+
+#sel {
+    font-size: clamp(2rem, 4vw, 2.5rem) !important;
+    font-weight: bold !important;
+    color: var(--black) !important;
+    margin: 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+/* Seller info section */
+.seller-info {
+    background: rgba(0, 0, 0, 0.02) !important;
+    border: 1px solid var(--black) !important;
+    border-radius: 15px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+}
+
+.seller-info h2 {
+    color: var(--black) !important;
+    font-size: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.seller-info p {
+    color: var(--dark) !important;
+    font-size: 1rem !important;
+    margin: 0.25rem 0 !important;
+}
+
+/* Stats section */
+.stats {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    border-radius: 15px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 2rem !important;
+    text-align: center !important;
+}
+
+.stats h3 {
+    color: var(--white) !important;
+    font-size: 1.3rem !important;
+    margin-bottom: 0.5rem !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.stats p {
+    color: var(--yellow) !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+}
+
+#total-properties,
+#available-count,
+#unavailable-count {
+    color: var(--yellow) !important;
+    font-weight: bold !important;
+}
+
+/* Actions section */
+.actions {
+    display: flex !important;
+    gap: 1rem !important;
+    margin-bottom: 2rem !important;
+    justify-content: center !important;
+}
+
+/* Button styles - Matching your website */
+.btn {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    border: 2px solid var(--black) !important;
+    padding: 12px 24px !important;
+    border-radius: 25px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    transition: all 0.3s ease !important;
+    display: inline-block !important;
+    text-align: center !important;
+}
+
+.btn:hover {
+    background: var(--white) !important;
+    color: var(--black) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btnd {
+    background: #dc2626 !important;
+    color: var(--white) !important;
+    border: 2px solid #dc2626 !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.btnd:hover {
+    background: var(--white) !important;
+    color: #dc2626 !important;
+    transform: translateY(-1px) !important;
+}
+
+.btnn {
+    background: #16a34a !important;
+    color: var(--white) !important;
+    border: 2px solid #16a34a !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.btnn:hover {
+    background: var(--white) !important;
+    color: #16a34a !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Section headings */
+h2 {
+    color: var(--black) !important;
+    font-size: 1.8rem !important;
+    margin: 2rem 0 1rem 0 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    border-bottom: 2px solid var(--black) !important;
+    padding-bottom: 0.5rem !important;
+}
+
+/* Table styles - Redesigned */
+table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1rem 0 2rem 0 !important;
+    background: var(--white) !important;
+    border: 2px solid var(--black) !important;
+    border-radius: 15px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+th {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    padding: 1rem !important;
+    text-align: left !important;
+    font-weight: 600 !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 1rem !important;
+}
+
+td {
+    border: 1px solid #eee !important;
+    padding: 1rem !important;
+    text-align: left !important;
+    color: var(--dark) !important;
+    font-size: 0.9rem !important;
+    height: auto !important;
+    vertical-align: middle !important;
+}
+
+tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02) !important;
+}
+
+tr:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+    transition: background 0.3s ease !important;
+}
+
+/* Inquiries section */
+#seller-inquiry-list {
+    margin-top: 1rem !important;
+}
+
+.inquiry {
+    border: 2px solid var(--black) !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 15px !important;
+    background: var(--white) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    transition: all 0.3s ease !important;
+}
+
+.inquiry:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.inquiry p {
+    margin: 0.5rem 0 !important;
+    color: var(--dark) !important;
+    font-size: 0.9rem !important;
+}
+
+.inquiry strong {
+    color: var(--black) !important;
+    font-weight: 600 !important;
+}
+
+.inquiry small {
+    color: var(--dark) !important;
+    font-size: 0.8rem !important;
+    opacity: 0.8 !important;
+}
+
+.inquiry button {
+    background: var(--black) !important;
+    color: var(--white) !important;
+    border: none !important;
+    padding: 8px 12px !important;
+    border-radius: 20px !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    margin: 0.25rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.inquiry button:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Links */
+a {
+    color: var(--black) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+}
+
+a:hover {
+    color: var(--yellow) !important;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media screen and (max-width: 1100px) {
+    .dashboard-container {
+        width: 95% !important;
+        padding: 1.5rem !important;
+        margin: 1rem !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        padding: 1rem 0.5rem;
+    }
+    
+    .dashboard-container {
+        width: 98% !important;
+        padding: 1rem !important;
+        margin: 0.5rem !important;
+        border-radius: 15px !important;
+    }
+    
+    .header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        text-align: center !important;
+    }
+    
+    .actions {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    .btn {
+        width: 100% !important;
+        max-width: 200px !important;
+    }
+    
+    .inquiry {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    table {
+        font-size: 0.8rem !important;
+    }
+    
+    th, td {
+        padding: 0.75rem 0.5rem !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #sel {
+        font-size: 1.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    table {
+        font-size: 0.7rem !important;
+    }
+    
+    th, td {
+        padding: 0.5rem 0.25rem !important;
+    }
+    
+    .dashboard-container {
+        padding: 0.75rem !important;
+    }
+    
+    .seller-info,
+    .stats {
+        padding: 1rem !important;
+    }
+    
+    .inquiry {
+        padding: 1rem !important;
+    }
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus,
+input:focus {
+    outline: 2px solid var(--yellow) !important;
+    outline-offset: 2px !important;
+}
+
+/* Loading states */
+.loading {
+    text-align: center !important;
+    padding: 2rem !important;
+    color: var(--dark) !important;
+    font-style: italic !important;
+}
+
+/* Empty states */
+.empty-state {
+    text-align: center !important;
+    padding: 3rem !important;
+    color: var(--dark) !important;
+}
+
+.empty-state h3 {
+    color: var(--black) !important;
+    margin-bottom: 1rem !important;
+    font-size: 1.5rem !important;
+}
