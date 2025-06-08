@@ -75,6 +75,14 @@
                     <input type="tel" id="phone" name="phone" placeholder="Phone Number">
                 </div>
 
+                <div class="input-field">
+                    <input type="text" id="university" name="university" placeholder="University">
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="course" name="course" placeholder="Course">
+                </div>
+
                 <div class="password-section">
                     <h3>Change Password (optional)</h3>
                     
@@ -108,24 +116,17 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-        const username = localStorage.getItem('username');
-
-        if (!username) return window.location.href = 'login.html';
-
-        fetch(`https://webpojja.pasgorasa.site/api/user/${username}`)
-            .then(res => res.json())
-            .then(user => {
-            document.getElementById('username').value = user.username;
-            document.getElementById('fullName').value = user.full_name;
-            document.getElementById('email').value = user.email;
-            document.getElementById('phone').value = user.phone_number;
-            })
-            .catch(err => {
-            console.error('Failed to load profile:', err);
-            });
+        // Profile picture preview
+        document.getElementById('profilePictureInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
         });
-
 
         // Sidebar functions
         function showSidebar() {
