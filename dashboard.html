@@ -184,6 +184,9 @@
         <!-- Properties inserted here -->
       </tbody>
     </table>
+
+    <h2>Inquiries</h2>
+    <div id="seller-inquiry-list">Loading inquiries...</div>
   </div>
 
   <script>
@@ -239,6 +242,51 @@
     }
 
     loadDashboard();
+
+    const username = localStorage.getItem('username');
+    fetch(`https://webpojja.pasgorasa.site/api/inquiries/${username}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.userType !== 'owner') return;
+
+      const inquiries = data.inquiries;
+      if (inquiries.length === 0) {
+        document.getElementById('seller-inquiry-list').innerHTML = '<p>No inquiries.</p>';
+        return;
+      }
+
+      const html = inquiries.map(inq => `
+        <div class="inquiry">
+          <p><strong>Property:</strong> ${inq.property_title}</p>
+          <p><strong>From:</strong> ${inq.counterparty_name}</p>
+          <p><strong>Message:</strong> ${inq.message}</p>
+          <p><strong>Status:</strong> ${inq.status}</p>
+          <small>${new Date(inq.inquiry_date).toLocaleString()}</small><br>
+          ${inq.status === 'pending' ? `
+            <button onclick="acceptInquiry(${inq.inquiry_id}, ${inq.property_id})">✅ Accept</button>
+            <button onclick="declineInquiry(${inq.inquiry_id})">❌ Decline</button>
+          ` : '<em>Closed</em>'}
+        </div>
+      `).join('');
+
+      document.getElementById('seller-inquiry-list').innerHTML = html;
+    });
+
+  function acceptInquiry(inquiryId, propertyId) {
+    fetch(`https://webpojja.pasgorasa.site/api/accept/${inquiryId}`, {
+      method: 'POST'
+    })
+    .then(() => location.reload())
+    .catch(err => console.error('Accept failed:', err));
+  }
+
+  function declineInquiry(inquiryId) {
+    fetch(`https://webpojja.pasgorasa.site/api/decline/${inquiryId}`, {
+      method: 'POST'
+    })
+    .then(() => location.reload())
+    .catch(err => console.error('Decline failed:', err));
+  }
   </script>
   <script>
   document.addEventListener('DOMContentLoaded', () => {
