@@ -138,27 +138,39 @@ fetch(`https://webpojja.pasgorasa.site/api/inquiries/${username}`)
     if (!data.inquiries || data.inquiries.length === 0) {
       list.innerHTML = '<p>No inquiries found.</p>';
     } else {
-      list.innerHTML = data.inquiries.map(inq => `
-        <div class="inquiry" id="inquiry-${inq.inquiry_id}">
-          <p><strong>Property:</strong> ${inq.property_title}</p>
-          <p><strong>Message:</strong> ${inq.message}</p>
-          <p><strong>Status:</strong> ${inq.status}</p>
-          <small>${new Date(inq.inquiry_date).toLocaleString()}</small>
-          ${inq.status === 'accepted' && inq.seller_contact ? `
-            <p><strong>Seller's Name:</strong> ${inq.seller_contact.name}</p>
-            <p><strong>Seller's Phone No:</strong> ${inq.seller_contact.phone}</p>
-            <p style="color: blue;">Seller has accepted your inquiry. Contact the seller for continue...</p>
-          ` : ''}
-          <br>
-          <button onclick="deleteInquiry(${inq.inquiry_id})" class="btn" style="margin-top: 10px;">Delete</button>
-        </div>
-      `).join('');
+      list.innerHTML = data.inquiries.map(inq => {
+        // Determine color
+        let statusColor = 'gray';
+        if (inq.status.toLowerCase() === 'accepted') statusColor = 'green';
+        else if (['rejected', 'declined', 'closed'].includes(inq.status.toLowerCase())) statusColor = 'red';
+
+        return `
+          <div class="inquiry" id="inquiry-${inq.inquiry_id}">
+            <p><strong>Property:</strong> ${inq.property_title}</p>
+            <p><strong>Message:</strong> ${inq.message}</p>
+            <p><strong>Status:</strong> 
+              <span style="color: ${statusColor}; font-weight: bold;">
+                ${inq.status}
+              </span>
+            </p>
+            <small>${new Date(inq.inquiry_date).toLocaleString()}</small>
+            ${inq.status === 'accepted' && inq.seller_contact ? `
+              <p><strong>Seller's Name:</strong> ${inq.seller_contact.name}</p>
+              <p><strong>Seller's Phone No:</strong> ${inq.seller_contact.phone}</p>
+              <p style="color: blue;">Seller has accepted your inquiry. Contact the seller to continue.</p>
+            ` : ''}
+            <br>
+            <button onclick="deleteInquiry(${inq.inquiry_id})" class="btn" style="margin-top: 10px;">Delete</button>
+          </div>
+        `;
+      }).join('');
     }
   })
   .catch(err => {
     console.error(err);
     document.getElementById('inquiry-list').innerHTML = '<p>Error loading inquiries.</p>';
   });
+
 
 // Delete inquiry function
 function deleteInquiry(inquiryId) {
