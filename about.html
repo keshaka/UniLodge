@@ -43,7 +43,7 @@
         </div>
     </header>
 
-    <main onclick="hideSidebar()">
+    <main onclick="hideSidebar()" style="padding-top: 0;">
         <div class="about-container">
             <!-- Hero Section -->
             <section class="hero-section">
@@ -112,23 +112,34 @@
         <p class="fot2">Designed by Team Unilodge. Powered by AWS</p>
     </div>
     </footer>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const username = localStorage.getItem('username');
-            const proname = document.getElementById('proname');
-            const pronames = document.getElementById('pronames');
+    document.addEventListener('DOMContentLoaded', () => {
+        const username = localStorage.getItem('username');
+        const fullName = localStorage.getItem('full_name');
+        const firstName = fullName.split(' ')[0];
+        const proname = document.getElementById('proname');
+        const pronames = document.getElementById('pronames');
 
-            if (proname) {
-                if (username) {
-                    proname.innerHTML = `<a href="profile.html" class="nav-link">Hello, ${username}</a>`;
-                    pronames.innerHTML = `<a href="profile.html" class="nav-link">Hello, ${username}</a>`;
-                } else {
-                    proname.innerHTML = `<a href="login.html" class="nav-link">Login</a>`;
-                    pronames.innerHTML = `<a href="login.html" class="nav-link">Login</a>`;
-                }
-            }
-        });
+        if (proname) {
+        if (username) {
+            proname.innerHTML = `
+            <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
+            `;
+            pronames.innerHTML = `
+            <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
+            `;
+        } else {
+            proname.innerHTML = `
+            <a href="login.html" class="nav-link">Login</a>
+            `;
+            pronames.innerHTML = `
+            <a href="login.html" class="nav-link">Login</a>
+            `;
+        }
+        }
+    });
+    </script>
+    <script>
 
         function showSidebar() {
             const sidebar = document.querySelector('.side-bar');

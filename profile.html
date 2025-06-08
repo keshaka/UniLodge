@@ -157,7 +157,7 @@ fetch(`https://webpojja.pasgorasa.site/api/inquiries/${username}`)
             ${inq.status === 'accepted' && inq.seller_contact ? `
               <p><strong>Seller's Name:</strong> ${inq.seller_contact.name}</p>
               <p><strong>Seller's Phone No:</strong> ${inq.seller_contact.phone}</p>
-              <p style="color: blue;">Seller has accepted your inquiry. Contact the seller to continue.</p>
+              <p style="color: #3289a8;">Seller has accepted your inquiry. Contact the seller to continue.</p>
             ` : ''}
             <br>
             <button onclick="deleteInquiry(${inq.inquiry_id})" class="btn" style="margin-top: 10px;">Delete</button>
