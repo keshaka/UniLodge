@@ -71,8 +71,12 @@
                 <h2>Your Information</h2>
                 <div class="info-grid">
                     <div class="info-item">
-                        <strong>Username:</strong>
+                        <strong>User Name:</strong>
                         <span id="username">Loading...</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Name:</strong>
+                        <span id="name">Loading...</span>
                     </div>
                     <div class="info-item">
                         <strong>Email:</strong>
@@ -111,13 +115,14 @@
       window.location.href = 'login.html';
     }
 
-    document.getElementById('greeting').textContent = `Hello, ${username}`;
 
     // Fetch student profile
     fetch(`https://webpojja.pasgorasa.site/api/user/${username}`)
       .then(res => res.json())
       .then(data => {
+        document.getElementById('greeting').textContent = `Hello, ${data.full_name}`;
         document.getElementById('username').textContent = data.username;
+        document.getElementById('name').textContent = data.full_name;
         document.getElementById('email').textContent = data.email;
         document.getElementById('phone').textContent = data.phone_number;
       })
