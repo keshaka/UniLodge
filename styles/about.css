@@ -202,16 +202,6 @@ main {
     color: var(--white);
 }
 
-/* Footer */
-footer {
-    color: #fff;
-    width: 100%;
-    min-height: 60px;
-    background-color: #000;
-    text-align: center;
-    padding: 1rem 0;
-    margin-top: auto;
-}
 
 .bottom-footer {
   position: relative;
@@ -572,15 +562,7 @@ footer {
         font-size: 0.75rem;
     }
     
-    .bottom-footer {
-        flex-direction: column;
-        gap: 0.25rem;
-    }
-    
-    .bottom-footer p {
-        font-size: 0.75rem;
-        padding: 0.25rem;
-    }
+
 }
 
 /* Extra Small Mobile (below 320px) */
