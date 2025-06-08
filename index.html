@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uni Lodge Renting</title>
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="assests/icons/favicon.png" type="image/x-icon">
     <script src="script.js"></script>
 </head>
@@ -19,8 +20,8 @@
                     <a href="index.html" class="nav-link"><li>Home</li></a>
                     <a href="rooms.html" class="nav-link"><li>Rooms</li></a>
                     <a href="about.html" class="nav-link"><li>About</li></a>
-                    <a href="login.html" class="nav-link"><li>Contact</li></a>
-                    <li><span id="pronames"></span></li>
+                    <a href="contact.html" class="nav-link"><li>Contact</li></a>
+                    <a href="login.html" class="nav-link"><li><span id="pronames"></span></li></a>
                 </ul>
             </nav></div>
         </div>
@@ -31,7 +32,7 @@
                     <li><a href="rooms.html" class="nav-link">Rooms</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
-                    </li><span id="proname"></span></span></li>
+                    </li><span id="proname"></span></a>
                 </ul>
             </nav>
         </div>
@@ -375,14 +376,14 @@
                 <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
                 `;
                 pronames.innerHTML = `
-                <a href="profile.html" class="nav-link">Hello, ${firstName}</a>
+                Hello, ${firstName}
                 `;
             } else {
                 proname.innerHTML = `
                 <a href="login.html" class="nav-link">Login</a>
                 `;
                 pronames.innerHTML = `
-                <a href="login.html" class="nav-link">Login</a>
+                Login
                 `;
             }
             }

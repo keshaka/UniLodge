@@ -67,7 +67,6 @@
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -129,30 +128,6 @@ nav ul {
   height: 24px !important;
 }
 
-nav li {
-  height: 50px;
-  display: flex;
-  align-items: center;
-}
-
-nav a:hover {
-  color: var(--yellow);
-  transform: scale(1.1);
-  transition: transform 0.3s ease;
-}
-
-.nav-link {
-  font-family: Figtree, sans-serif;
-  color: var(--black);
-  letter-spacing: .25px;
-  margin: 0 0.5rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 0.875rem;
-  font-weight: 550;
-  line-height: 170%;
-  text-decoration: none;
-  transition: color .3s;
-}
 
 /* Sidebar Styles */
 .side-bar {
@@ -269,6 +244,7 @@ main {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.1;
   margin-bottom: 1.25rem;
+  margin-top: 50px;
 }
 
 .par1 {
