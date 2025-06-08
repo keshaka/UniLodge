@@ -843,6 +843,10 @@ footer {
     width: 10px;
     height: 10px;
   }
+
+  .action-button {
+    width: 35%;
+  }
 }
 
 /* Accessibility */
