@@ -8,6 +8,14 @@
     <link rel="icon" href="assets/icons/favicon.png" type="image/x-icon">
     <script src="scripts/script.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script>
+        const userType = localStorage.getItem('user_type');
+        if (userType === 'owner') {
+            window.location.href = 'dashboard.html';
+        } else if (userType === 'student') {
+            window.location.href = 'profile.html';
+        }
+    </script>
 </head>
 <body>
     <header>

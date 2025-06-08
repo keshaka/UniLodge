@@ -7,6 +7,15 @@
   <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" href="assets/icons/favicon.png" type="image/x-icon">
     <script src="scripts/script.js"></script>
+    <script>
+        const userType = localStorage.getItem('user_type');
+        if (!userType) {
+          // User not logged in
+          window.location.href = 'login.html';
+        } else if (userType === 'owner') {
+          window.location.href = 'dashboard.html';
+        }
+    </script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;

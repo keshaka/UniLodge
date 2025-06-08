@@ -6,6 +6,15 @@
   <title>Seller Dashboard</title>
   <link rel="stylesheet" href="styles/style.css" />
   <script src="scripts/script.js"></script>
+  <script>
+    const userType = localStorage.getItem('user_type');
+    if (!userType) {
+      // User not logged in
+      window.location.href = 'login.html';
+    } else if (userType === 'student') {
+      window.location.href = 'profile.html';
+    }
+  </script>
   <style>
     body .dashboard-container {
 
