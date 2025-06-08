@@ -147,8 +147,8 @@ fetch(`https://webpojja.pasgorasa.site/api/inquiries/${username}`)
           <p><strong>Status:</strong> ${inq.status}</p>
           <small>${new Date(inq.inquiry_date).toLocaleString()}</small>
           ${inq.status === 'accepted' && inq.seller_contact ? `
-            <p><strong>Seller Name:</strong> ${inq.seller_contact.name}</p>
-            <p><strong>Seller Phone:</strong> ${inq.seller_contact.phone}</p>
+            <p><strong>Seller's Name:</strong> ${inq.seller_contact.name}</p>
+            <p><strong>Seller's Phone No:</strong> ${inq.seller_contact.phone}</p>
             <p style="color: blue;">Seller has accepted your inquiry. Contact the seller for continue...</p>
           ` : ''}
           <br>
