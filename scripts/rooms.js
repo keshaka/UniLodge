@@ -488,6 +488,42 @@ function renderListings() {
     });
 }
 
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('buy-btn')) {
+    e.stopPropagation(); // prevent map popup triggering
+
+    const propertyId = e.target.getAttribute('data-property-id');
+    const ownerId = e.target.getAttribute('data-owner-id');
+    const studentUsername = localStorage.getItem('username');
+
+    if (!studentUsername) {
+      alert("Please log in to inquire about a property.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    fetch('https://webpojja.pasgorasa.site/api/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        property_id: propertyId,
+        owner_id: ownerId,
+        student_username: studentUsername,
+        message: 'I am interested in this property.'
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || 'Inquiry sent!');
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Failed to send inquiry.");
+    });
+  }
+});
+
+
 // Update results count
 function updateResultsCount() {
     resultsCount.textContent = filteredListings.length;

@@ -213,7 +213,7 @@ app.get('/rooms', (req, res) => {
       p.creation_date AS datePosted,
       'Fully Furnished' AS furnishing,
       1 AS baths,
-      '1200 sqft' AS area,
+      p.distance_from_university AS distance,
       pi.image_path AS image
     FROM Properties p
     LEFT JOIN PropertyImages pi ON p.property_id = pi.property_id AND pi.is_primary = 1
@@ -256,7 +256,7 @@ app.get('/rooms', (req, res) => {
         price: p.price,
         beds: p.beds,
         baths: p.baths,
-        area: p.area,
+        distance: p.distance,
         furnishing: p.furnishing,
         availability: p.available ? 'Now' : 'Unavailable',
         nearbyLandmarks: ['University of Moratuwa'],
@@ -357,6 +357,209 @@ app.delete('/properties/:id', (req, res) => {
     });
   });
 });
+
+app.get('/user/:username', (req, res) => {
+  const { username } = req.params;
+
+  const sql = `SELECT username, email, full_name, phone_number FROM Users WHERE username = ?`;
+
+  db.query(sql, [username], (err, results) => {
+    if (err) {
+      console.error('DB error:', err);
+      return res.status(500).json({ message: 'Database error' });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'user not found' });
+    }
+
+    res.json(results[0]);
+  });
+});
+
+app.put('/user/:username', async (req, res) => {
+  const { username } = req.params;
+  const { full_name, email, phone_number, current_password, new_password } = req.body;
+
+  // First, get existing student
+  const getUserSql = `SELECT * FROM Users WHERE username = ?`;
+  db.query(getUserSql, [username], async (err, results) => {
+    if (err) return res.status(500).json({ message: 'Database error' });
+    if (results.length === 0) return res.status(404).json({ message: 'user not found' });
+
+    const user = results[0];
+
+    // If password update requested, check current password
+    let passwordHash = user.password_hash;
+    if (new_password && current_password) {
+      const match = await bcrypt.compare(current_password, user.password_hash);
+      if (!match) return res.status(400).json({ message: 'Incorrect current password' });
+      passwordHash = await bcrypt.hash(new_password, 10);
+    }
+
+    // Update user info
+    const updateSql = `
+      UPDATE Users
+      SET full_name = ?, email = ?, phone_number = ?, password_hash = ?
+      WHERE username = ?
+    `;
+
+    db.query(updateSql, [full_name, email, phone_number, passwordHash, username], (err2) => {
+      if (err2) return res.status(500).json({ message: 'Failed to update profile' });
+      res.json({ message: 'Profile updated successfully' });
+    });
+  });
+});
+
+app.get('/inquiries/:username', (req, res) => {
+  const { username } = req.params;
+
+  // 1️⃣ Get the user and type
+  const userSql = `SELECT user_id, user_type FROM Users WHERE username = ?`;
+  db.query(userSql, [username], (err, userRes) => {
+    if (err || userRes.length === 0) {
+      console.error('User lookup failed:', err);
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const { user_id: userId, user_type: userType } = userRes[0];
+    let sql, params;
+
+    // 2️⃣ Build query based on role
+    if (userType === 'student') {
+      sql = `
+        SELECT i.inquiry_id, i.property_id, i.message, i.inquiry_date, i.status,
+               p.title AS property_title, u.full_name AS owner_name
+        FROM Inquiries i
+        JOIN Properties p ON i.property_id = p.property_id
+        JOIN Users u ON i.owner_id = u.user_id
+        WHERE i.student_id = ?
+        ORDER BY i.inquiry_date DESC
+      `;
+      params = [userId];
+
+    } else if (userType === 'owner') {
+      sql = `
+        SELECT i.inquiry_id, i.property_id, i.message, i.inquiry_date, i.status,
+               p.title AS property_title, s.full_name AS student_name
+        FROM Inquiries i
+        JOIN Properties p ON i.property_id = p.property_id
+        JOIN Users s ON i.student_id = s.user_id
+        WHERE i.owner_id = ?
+        ORDER BY i.inquiry_date DESC
+      `;
+      params = [userId];
+
+    } else {
+      return res.status(400).json({ message: 'Unsupported user type' });
+    }
+
+    console.log('User type:', userType);
+    console.log('Running SQL:', sql);
+    console.log('With params:', params);
+
+    // 3️⃣ Execute query
+    db.query(sql, params, (err2, results) => {
+      if (err2) {
+        console.error('Error executing inquiry query:', err2.sqlMessage || err2);
+        return res.status(500).json({ message: 'Database error' });
+      }
+
+
+      // 4️⃣ Return inquiries, using a single field for counterparty
+      const inquiries = results.map(row => ({
+        inquiry_id: row.inquiry_id,
+        property_id: row.property_id,
+        message: row.message,
+        inquiry_date: row.inquiry_date,
+        status: row.status,
+        property_title: row.property_title,
+        counterparty_name: userType === 'student' ? row.owner_name : row.student_name
+      }));
+
+      res.json({ userType, inquiries });
+    });
+  });
+});
+
+// DELETE inquiry by ID
+app.delete('/inquiries/:inquiry_id', (req, res) => {
+  const { inquiry_id } = req.params;
+
+  const sql = 'DELETE FROM Inquiries WHERE inquiry_id = ?';
+  db.query(sql, [inquiry_id], (err, result) => {
+    if (err) {
+      console.error('Error deleting inquiry:', err);
+      return res.status(500).json({ message: 'Failed to delete inquiry' });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: 'Inquiry not found' });
+    }
+
+    res.json({ message: 'Inquiry deleted successfully' });
+  });
+});
+
+// Accept Inquiry (Close inquiry + mark property unavailable)
+app.post('/accept/:inquiryId', (req, res) => {
+  const inquiryId = req.params.inquiryId;
+
+  const getSql = 'SELECT property_id FROM Inquiries WHERE inquiry_id = ? AND status = "pending"';
+  db.query(getSql, [inquiryId], (err, rows) => {
+    if (err || rows.length === 0) return res.status(400).json({ message: 'Invalid inquiry' });
+
+    const propertyId = rows[0].property_id;
+    const updateInquiry = 'UPDATE Inquiries SET status = "closed" WHERE inquiry_id = ?';
+    const updateProperty = 'UPDATE Properties SET available = 0 WHERE property_id = ?';
+
+    db.query(updateInquiry, [inquiryId], err2 => {
+      if (err2) return res.status(500).json({ message: 'Error updating inquiry' });
+
+      db.query(updateProperty, [propertyId], err3 => {
+        if (err3) return res.status(500).json({ message: 'Error updating property' });
+
+        res.json({ message: 'Inquiry accepted' });
+      });
+    });
+  });
+});
+
+// Decline Inquiry (Only close inquiry)
+app.post('/decline/:inquiryId', (req, res) => {
+  const inquiryId = req.params.inquiryId;
+  const updateSql = 'UPDATE Inquiries SET status = "closed" WHERE inquiry_id = ?';
+  db.query(updateSql, [inquiryId], err => {
+    if (err) return res.status(500).json({ message: 'Error declining inquiry' });
+    res.json({ message: 'Inquiry declined' });
+  });
+});
+
+app.post('/create', (req, res) => {
+  const { property_id, owner_id, student_username, message } = req.body;
+
+  if (!property_id || !owner_id || !student_username) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  const findStudent = `SELECT user_id FROM Users WHERE username = ? AND user_type = 'student'`;
+  db.query(findStudent, [student_username], (err, result) => {
+    if (err || result.length === 0) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    const student_id = result[0].user_id;
+    const insertSql = `
+      INSERT INTO Inquiries (property_id, owner_id, student_id, message, status, inquiry_date)
+      VALUES (?, ?, ?, ?, 'pending', NOW())
+    `;
+    db.query(insertSql, [property_id, owner_id, student_id, message], err2 => {
+      if (err2) return res.status(500).json({ message: 'Failed to create inquiry' });
+      res.json({ message: 'Inquiry created successfully' });
+    });
+  });
+});
+
 
 // ? Basic Health Check
 app.get('/', (req, res) => {
