@@ -2182,3 +2182,26 @@ textarea:focus,
     align-items: center;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .mid-stripe {
+    width: 90%;
+  }
+  .reviewreviews-carousel {
+    width: 90%;
+  }
+  .header-icons svg {
+    margin-right: 0;
+  }
+  header {
+    width: 90%;
+  }
+  .button-content h3 {
+    font-size: 12px;
+  }
+  .poly-ld-active p {
+    font-size: 12px;
+  }
+}
+
+}

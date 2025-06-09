@@ -843,6 +843,19 @@ footer {
     width: 10px;
     height: 10px;
   }
+
+  .action-button {
+    width: 20%;
+    font-size: 12px;
+  }
+  .cta-btn {
+    font-size: 12px;
+    padding: 3px;
+
+  }
+  .mid-stripe {
+    width: 90%;
+  }
 }
 
 /* Accessibility */
@@ -981,4 +994,64 @@ transition: var(--transition);
 
 .room-buy a:hover svg {
 fill: var(--white);
+}
+
+
+@media (max-width: 480px) {
+  .reviews-carousel {
+    padding: 20px 10px;
+    width: 90%;
+  }
+  
+  .review-card {
+    padding: 12px;
+    width: 90%;
+  }
+  
+  .reviewer-details h4 {
+    font-size: 14px;
+  }
+  
+  .reviewer-details p {
+    font-size: 12px;
+  }
+  
+  .review-text {
+    font-size: 14px;
+  }
+  
+  .review-date {
+    font-size: 12px;
+  }
+  
+  .carousel-indicators {
+    gap: 8px;
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+
+  .action-button {
+    width: 20%;
+    font-size: 12px;
+  }
+  .cta-btn {
+    font-size: 12px;
+    padding: 3px;
+    border-radius: 5px;
+
+  }
+  .mid-stripe {
+    width: 90%;
+  }
+  .proi {
+    display: none;
+    margin-right: 0;
+  }
+
+  .header-icons svg {
+    margin-right: 0;
+  }
 }
