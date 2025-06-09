@@ -756,7 +756,6 @@ footer {
 
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
         padding: 15px;
     }
     
@@ -815,6 +814,10 @@ footer {
     .listing-amenities {
         flex-direction: column;
         gap: 10px;
+    }
+    .searchi {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
 

@@ -49,7 +49,7 @@ nav ul {
 }
 
 .header-icons svg {
-  padding-left: 0;
+
   width: auto;
   margin-right: 55px;
 }
@@ -669,7 +669,6 @@ nav ul {
 }
 
 .header-icons svg {
-  padding-left: 0;
   width: auto;
   margin-right: 55px;
 }
@@ -1365,7 +1364,6 @@ nav ul {
 }
 
 .header-icons svg {
-  padding-left: 0;
   width: auto;
   margin-right: 55px;
 }
@@ -2209,4 +2207,8 @@ textarea:focus,
     padding-right: 0;
     font-size: 12px;
   }
+  .searchi {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
