@@ -20,14 +20,12 @@ UniLodge is a project designed to streamline and enhance the management of stude
 - Room booking and management
 - Tenant information tracking
 - Maintenance request handling
-- Payment and billing system
-- Reporting and analytics
 
 ## Installation
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/UniLodge.git
+    git clone https://github.com/keshaka/UniLodge.git
     ```
 2. Navigate to the project directory:
     ```bash
