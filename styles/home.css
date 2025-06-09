@@ -1036,6 +1036,7 @@ fill: var(--white);
   .action-button {
     width: 20%;
     font-size: 12px;
+    padding: 10px;
   }
   .cta-btn {
     font-size: 12px;
