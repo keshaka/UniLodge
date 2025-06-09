@@ -24,7 +24,7 @@ const maxPriceValue = document.getElementById('max-price-value');
 async function fetchRoomData() {
     try {
         // Replace with your real API endpoint
-        const response = await fetch('https://webpojja.pasgorasa.site/api/rooms');
+        const response = await fetch('https://unilodge.live/api/rooms');
         if (!response.ok) throw new Error(`API error: ${response.status}`);
         const data = await response.json();
 
@@ -502,7 +502,7 @@ document.addEventListener('click', function (e) {
       return;
     }
 
-    fetch('https://webpojja.pasgorasa.site/api/create', {
+    fetch('https://unilodge.live/api/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

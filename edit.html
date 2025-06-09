@@ -113,7 +113,7 @@
 
         if (!username) return window.location.href = 'login.html';
 
-        fetch(`https://webpojja.pasgorasa.site/api/user/${username}`)
+        fetch(`https://unilodge.live/api/user/${username}`)
             .then(res => res.json())
             .then(user => {
             document.getElementById('username').value = user.username;
@@ -197,7 +197,7 @@
         };
 
         try {
-            const res = await fetch(`https://webpojja.pasgorasa.site/api/user/${username}`, {
+            const res = await fetch(`https://unilodge.live/api/user/${username}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)

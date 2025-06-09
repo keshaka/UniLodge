@@ -230,7 +230,7 @@
         alert('No user found. Please log in again.');
         window.location.href = 'login.html';
         return;}
-      const res = await fetch(`https://webpojja.pasgorasa.site/api/seller-dashboard/${username}`);
+      const res = await fetch(`https://unilodge.live/api/seller-dashboard/${username}`);
       const data = await res.json();
 
       // Fill seller info
@@ -261,7 +261,7 @@
 
     async function deleteProperty(id) {
       if (confirm("Are you sure you want to delete this property?")) {
-        await fetch(`https://webpojja.pasgorasa.site/api/properties/${id}`, { method: 'DELETE' });
+        await fetch(`https://unilodge.live/api/properties/${id}`, { method: 'DELETE' });
         alert("Property deleted.");
         loadDashboard();
       }
@@ -280,7 +280,7 @@
     loadDashboard();
 
     const username = localStorage.getItem('username');
-    fetch(`https://webpojja.pasgorasa.site/api/inquiries/${username}`)
+    fetch(`https://unilodge.live/api/inquiries/${username}`)
     .then(res => res.json())
     .then(data => {
       if (data.userType !== 'owner') return;
@@ -312,7 +312,7 @@
     });
 
   function acceptInquiry(inquiryId, propertyId) {
-    fetch(`https://webpojja.pasgorasa.site/api/accept/${inquiryId}`, {
+    fetch(`https://unilodge.live/api/accept/${inquiryId}`, {
       method: 'POST'
     })
     .then(() => location.reload())
@@ -320,7 +320,7 @@
   }
 
   function declineInquiry(inquiryId) {
-    fetch(`https://webpojja.pasgorasa.site/api/decline/${inquiryId}`, {
+    fetch(`https://unilodge.live/api/decline/${inquiryId}`, {
       method: 'POST'
     })
     .then(() => location.reload())

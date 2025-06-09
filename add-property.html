@@ -242,7 +242,7 @@ document.getElementById('propertyForm').addEventListener('submit', async functio
   const formData = new FormData(this); // ⬅️ Keep this as FormData
 
   try {
-    const res = await fetch('https://webpojja.pasgorasa.site/api/add-property', {
+    const res = await fetch('https://unilodge.live/api/add-property', {
       method: 'POST',
       body: formData, // ⬅️ Directly pass FormData, no headers needed
     });
