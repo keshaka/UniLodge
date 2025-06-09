@@ -49,7 +49,7 @@ nav ul {
 }
 
 .header-icons svg {
-
+  padding-left: 0;
   width: auto;
   margin-right: 55px;
 }
@@ -777,7 +777,6 @@ nav a:hover {
 
 .menu-btn {
   padding-left: 0%;
-  display: none;
 }
 
 .close-svg {
