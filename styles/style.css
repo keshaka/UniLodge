@@ -2202,6 +2202,11 @@ textarea:focus,
   .poly-ld-active p {
     font-size: 12px;
   }
-}
-
+  .remember-forgot label, .remember-forgot a {
+    display: none;
+  }
+  .register-link p {
+    padding-right: 0;
+    font-size: 12px;
+  }
 }
